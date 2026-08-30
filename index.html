@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Static Pages</title>
+  <style>
+    :root { color-scheme: light; --ink:#17212b; --muted:#5f6b76; --line:#dce3e8; --blue:#2364aa; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:#f7f9fa; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+    main { max-width:900px; margin:0 auto; padding:56px 22px; }
+    h1 { margin:0; font-size:36px; letter-spacing:0; }
+    .lead { color:var(--muted); margin:10px 0 30px; }
+    .site { display:block; padding:20px; color:inherit; text-decoration:none; background:#fff; border:1px solid var(--line); border-radius:8px; }
+    .site:hover { border-color:var(--blue); }
+    .site strong { display:block; color:var(--blue); font-size:20px; }
+    .site span { display:block; margin-top:5px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Static Pages</h1>
+    <p class="lead">静态网站与交互报告索引</p>
+    <a class="site" href="./robot-projects/">
+      <strong>ESP-Claw / Ditto 与 StackChan 调研报告</strong>
+      <span>开源桌面机器人项目的架构、硬件、扩展性和落地建议。</span>
+    </a>
+  </main>
+</body>
+</html>

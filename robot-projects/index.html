@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESP-Claw / Ditto 与 StackChan 调研报告</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #5f6b76;
+      --line: #dce3e8;
+      --paper: #f7f9fa;
+      --white: #ffffff;
+      --blue: #2364aa;
+      --blue-soft: #e8f1fb;
+      --green: #237a62;
+      --green-soft: #e7f5ef;
+      --orange: #b66a16;
+      --orange-soft: #fff3df;
+      --red: #a34343;
+      --red-soft: #fbeaea;
+      --shadow: 0 16px 40px rgba(23, 33, 43, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .term {
+      position: relative;
+      display: inline;
+      color: inherit;
+      text-decoration: underline dotted var(--blue);
+      text-underline-offset: 3px;
+      cursor: help;
+    }
+    .term:focus { outline: 2px solid #8ab9e6; outline-offset: 3px; }
+    .term::after, .term::before { display: none; }
+    .tooltip {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: min(280px, calc(100vw - 16px));
+      padding: 10px 12px;
+      color: var(--white);
+      background: var(--ink);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 6px;
+      box-shadow: 0 10px 24px rgba(23,33,43,.22);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: left;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-5px);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+      pointer-events: none;
+    }
+    .tooltip.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .page { max-width: 1180px; margin: 0 auto; padding: 32px 22px 70px; }
+    .hero {
+      background: var(--ink);
+      color: var(--white);
+      padding: 42px clamp(24px, 5vw, 68px);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -90px;
+      top: -110px;
+      border: 42px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+    }
+    .eyebrow { margin: 0 0 8px; color: #9dc7ef; font-size: 13px; letter-spacing: .08em; }
+    h1 { margin: 0; max-width: 760px; font-size: clamp(30px, 5vw, 56px); line-height: 1.14; letter-spacing: 0; }
+    .hero p { max-width: 720px; margin: 20px 0 0; color: #d6e0e8; font-size: 17px; }
+    .date { margin-top: 28px; color: #9aaab6; font-size: 13px; }
+    .section { margin-top: 28px; }
+    .section-title { display: flex; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: 25px; }
+    .section-title small { color: var(--muted); font-size: 13px; font-weight: 400; }
+    .grid { display: grid; gap: 16px; }
+    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .panel, .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .panel { box-shadow: var(--shadow); }
+    .card h3, .panel h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p, .panel p { margin: 7px 0 0; }
+    .muted { color: var(--muted); }
+    .signal { border-left: 5px solid var(--blue); background: var(--blue-soft); }
+    .signal.green { border-left-color: var(--green); background: var(--green-soft); }
+    .signal.orange { border-left-color: var(--orange); background: var(--orange-soft); }
+    .signal.red { border-left-color: var(--red); background: var(--red-soft); }
+    .big-answer { font-size: 25px; line-height: 1.35; margin: 0; font-weight: 700; }
+    .tag { display: inline-block; padding: 2px 9px; margin: 3px 4px 3px 0; border-radius: 99px; background: #edf1f4; color: #42505c; font-size: 12px; }
+    .tag.blue { background: var(--blue-soft); color: var(--blue); }
+    .tag.green { background: var(--green-soft); color: var(--green); }
+    .score { display: grid; grid-template-columns: 118px 1fr; gap: 14px; align-items: center; margin: 13px 0; }
+    .score strong { font-size: 18px; }
+    .bar { height: 10px; border-radius: 10px; background: #edf0f2; overflow: hidden; }
+    .fill { height: 100%; border-radius: inherit; background: var(--blue); }
+    .fill.green { background: var(--green); }
+    .architecture { display: grid; gap: 10px; max-width: 760px; margin: 12px auto 0; }
+    .layer { display: grid; grid-template-columns: 150px 1fr; min-height: 54px; border: 1px solid var(--line); border-radius: 7px; overflow: visible; }
+    .layer b { display: grid; place-items: center; color: var(--white); background: var(--blue); padding: 8px; }
+    .layer > span { padding: 12px 16px; background: #fbfcfd; }
+    .layer.green b { background: var(--green); }
+    .layer.orange b { background: var(--orange); }
+    .arrow { text-align: center; color: var(--muted); height: 8px; line-height: 8px; }
+    table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); border-radius: 8px; overflow: visible; }
+    .table-scroll { overflow-x: auto; overflow-y: visible; border: 1px solid var(--line); border-radius: 8px; }
+    .table-scroll table { border: 0; border-radius: 0; min-width: 760px; }
+    th, td { text-align: left; vertical-align: top; padding: 13px 14px; border-bottom: 1px solid var(--line); }
+    th { background: #eef3f7; font-size: 13px; }
+    tr:last-child td { border-bottom: 0; }
+    .notice { padding: 15px 18px; background: #fffaf0; border: 1px solid #f0d9a9; border-radius: 8px; }
+    .cost { font-size: 29px; font-weight: 750; color: var(--green); line-height: 1.2; }
+    ol { padding-left: 22px; margin: 10px 0 0; }
+    li { margin: 7px 0; }
+    footer { margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) {
+      .two, .three { grid-template-columns: 1fr; }
+      .layer { grid-template-columns: 1fr; }
+      .layer b { min-height: 38px; }
+      .score { grid-template-columns: 105px 1fr; }
+      table { display: block; overflow-x: auto; white-space: normal; }
+      .table-scroll { margin-inline: -1px; overflow-x: auto; overflow-y: visible; }
+      .table-scroll table { display: table; overflow: visible; }
+      th, td { min-width: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">开源桌面机器人调研 · 总报告</p>
+      <h1>ESP-Claw / Ditto 与 StackChan</h1>
+      <p>一句话结论：<span class="term" tabindex="0" data-tip="已经组装好的机器人硬件平台，买来后可以直接开始开发。">StackChan</span> 更像“已经做好的机器人身体”，<span class="term" tabindex="0" data-tip="运行在设备上的智能程序框架，负责理解指令并调用设备功能。">ESP-Claw</span> 更像“让设备具备 <span class="term" tabindex="0" data-tip="人工智能代理：能理解目标、规划步骤并调用工具完成任务的软件。">AI Agent</span> 能力的运行时”。如果目标是尽快做出可扩展的小机器人，建议先用 StackChan 做硬件，再把独立 Agent、<span class="term" tabindex="0" data-tip="模型上下文协议：让 AI 使用外部工具和数据的一种通用接口。">MCP</span> 和家庭自动化服务接上去。</p>
+      <p class="date">调研范围：官方仓库、官方产品资料、公开文档与许可证信息</p>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">先看结论 <small>给决策者的 30 秒版本</small></h2>
+      <div class="grid two">
+        <article class="panel signal">
+          <h3>选择 StackChan，如果你要</h3>
+          <p class="big-answer">尽快拥有一个能动、能说、能表达的实体机器人。</p>
+          <p class="muted">它已经包含屏幕、摄像头、麦克风、扬声器、舵机、传感器、电池和外壳生态，验证周期短。</p>
+        </article>
+        <article class="panel signal green">
+          <h3>选择 ESP-Claw / Ditto，如果你要</h3>
+          <p class="big-answer">把 <span class="term" tabindex="0" data-tip="人工智能代理：能理解目标、规划步骤并调用工具的软件。">AI Agent</span>、设备控制和 <span class="term" tabindex="0" data-tip="物联网：让设备通过网络互相通信和提供服务。">IoT</span> 协议做成自己的平台能力。</p>
+          <p class="muted">它的优势在<span class="term" tabindex="0" data-tip="支撑程序运行、调度任务并连接硬件的一层基础软件。">运行时</span>、工具调用、<span class="term" tabindex="0" data-tip="一种轻量脚本语言，适合快速编写设备行为。">Lua</span> 扩展、<span class="term" tabindex="0" data-tip="模型上下文协议：让 AI 使用外部工具和数据的通用接口。">MCP</span> 和多设备适配，不是完整机器人套件。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">项目定位 <small>不是同一种产品</small></h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>ESP-Claw</h3>
+          <p><span class="term" tabindex="0" data-tip="乐鑫科技：ESP32 系列芯片和开发框架的厂商。">Espressif</span> 面向 <span class="term" tabindex="0" data-tip="一系列带无线连接能力的微控制器芯片，常用于智能硬件。">ESP32</span> 系列设备的 <span class="term" tabindex="0" data-tip="通过自然语言对话生成或修改设备功能的开发方式。">Chat Coding</span> AI Agent 框架。用户可以通过对话定义设备行为，生成的逻辑可以<span class="term" tabindex="0" data-tip="把内容保存下来，设备重启后仍然存在。">持久化</span>为本地规则。</p>
+          <span class="tag blue"><span class="term" tabindex="0" data-tip="支撑应用运行并连接系统资源的基础软件。">软件运行时</span></span><span class="tag blue">设备 Agent</span><span class="tag blue"><span class="term" tabindex="0" data-tip="用于连接、管理并控制联网设备的一套基础能力。">IoT 平台</span></span>
+        </article>
+        <article class="card">
+          <h3>StackChan</h3>
+          <p>M5Stack 与社区共同发展的开源桌面机器人项目，重点是可购买、可组装、可编程的实体机器人体验。</p>
+          <span class="tag green">完整硬件</span><span class="tag green">桌面机器人</span><span class="tag green">应用生态</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">架构对照 <small>两条路线如何工作</small></h2>
+      <div class="grid two">
+        <article class="panel">
+          <h3>ESP-Claw 的软件栈</h3>
+          <div class="architecture">
+            <div class="layer"><b>交互入口</b><span>Telegram、QQ、飞书、微信等 <span class="term" tabindex="0" data-tip="即时通信渠道，例如聊天软件和消息平台。">IM 通道</span>；也可接自定义 <span class="term" tabindex="0" data-tip="应用程序接口：两个软件之间传递命令和数据的约定。">API</span></span></div>
+            <div class="arrow">↓</div>
+            <div class="layer"><b><span class="term" tabindex="0" data-tip="智能代理反复执行“理解、决定、调用工具、检查结果”的工作循环。">Agent Loop</span></b><span><span class="term" tabindex="0" data-tip="大语言模型：用于理解和生成自然语言的 AI 模型。">LLM</span> 对话、工具调用、任务编排、上下文与<span class="term" tabindex="0" data-tip="按固定字段保存的信息，方便程序准确查找和更新。">本地结构化记忆</span></span></div>
+            <div class="arrow">↓</div>
+            <div class="layer green"><b>设备能力</b><span><span class="term" tabindex="0" data-tip="执行 Lua 脚本的环境。">Lua runtime</span>、<span class="term" tabindex="0" data-tip="路由器：根据请求类型，把任务送到正确处理模块。">Router</span>、本地确定性规则、<span class="term" tabindex="0" data-tip="事件发生时才触发相应程序，减少无效等待。">事件驱动</span>、<span class="term" tabindex="0" data-tip="MCP 服务端提供工具，客户端发现并调用这些工具。">MCP Server / Client</span></span></div>
+            <div class="arrow">↓</div>
+            <div class="layer orange"><b>硬件外设</b><span><span class="term" tabindex="0" data-tip="轻量图形界面库，用来绘制屏幕上的按钮、文字和动画。">LVGL</span>、<span class="term" tabindex="0" data-tip="连接传感器等低速芯片的双线通信接口。">I2C</span>、<span class="term" tabindex="0" data-tip="常见串行通信接口，用两根主要信号线收发数据。">UART</span>、<span class="term" tabindex="0" data-tip="通过快速开关比例控制亮度、转速或舵机位置。">PWM</span>、<span class="term" tabindex="0" data-tip="硬件脉冲计数器，常用于读取编码器或频率。">PCNT</span>、<span class="term" tabindex="0" data-tip="可精确产生或接收脉冲序列的硬件模块。">RMT</span>、<span class="term" tabindex="0" data-tip="把模拟电压转换为数字读数，用于读取传感器。">ADC</span>、USB、<span class="term" tabindex="0" data-tip="通过低功耗蓝牙模拟键盘、鼠标等输入设备。">BLE HID</span> 等</span></div>
+          </div>
+        </article>
+        <article class="panel">
+          <h3>StackChan 的实体栈</h3>
+          <div class="architecture">
+            <div class="layer green"><b>应用 / <span class="term" tabindex="0" data-tip="可单独安装的小功能模块，不必重做整个底层固件。">MOD</span></b><span><span class="term" tabindex="0" data-tip="常见网页脚本语言，StackChan 社区用它编写机器人功能。">JavaScript</span> / <span class="term" tabindex="0" data-tip="在 JavaScript 上增加类型检查，减少程序错误。">TypeScript</span> 功能、动作、表情、网页工具和 <span class="term" tabindex="0" data-tip="用拖拽积木的方式编程，适合初学者。">Blockly</span></span></div>
+            <div class="arrow">↓</div>
+            <div class="layer"><b><span class="term" tabindex="0" data-tip="Host 是底层主程序；固件是写入机器人芯片并直接控制硬件的软件。">Host / 固件</span></b><span>底层驱动、传感器、显示、音频、舵机、通信和基础系统能力</span></div>
+            <div class="arrow">↓</div>
+            <div class="layer orange"><b>机器人硬件</b><span><span class="term" tabindex="0" data-tip="M5Stack 的 ESP32-S3 主控模块，集成屏幕、音频、摄像头和多种传感器。">CoreS3</span>、触摸屏、摄像头、双麦克风、扬声器、<span class="term" tabindex="0" data-tip="能按命令转到指定角度的电机，用于控制机器人头部。">舵机</span>、LED、电池和扩展接口</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="notice" style="margin-top:16px"><strong>关键差异：</strong>StackChan 的 Host 与 MOD 分离，修改用户功能时不必每次重编译整个底层 Host；ESP-Claw 则把 Agent、工具和设备能力直接融合到 ESP32 设备运行时中。</div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">硬件对照 <small>谁更接近开箱即用</small></h2>
+      <div class="table-scroll">
+        <table>
+        <thead><tr><th>维度</th><th>ESP-Claw / Ditto</th><th>StackChan / CoreS3</th></tr></thead>
+        <tbody>
+          <tr><td><strong>主控定位</strong></td><td>Ditto <span class="term" tabindex="0" data-tip="为某块具体硬件准备的引脚、驱动和编译设置。">板级配置</span>基于 <span class="term" tabindex="0" data-tip="乐鑫的一款低功耗无线芯片，支持双频 Wi-Fi、蓝牙和多种 IoT 协议。">ESP32-C5</span>，强调连接、低功耗和 IoT 协议。</td><td>CoreS3 基于 <span class="term" tabindex="0" data-tip="乐鑫的双核芯片，擅长显示、语音和摄像头等多媒体任务。">ESP32-S3</span>，双核 240 MHz、16 MB <span class="term" tabindex="0" data-tip="断电后仍保留程序和文件的存储空间。">Flash</span>、8 MB <span class="term" tabindex="0" data-tip="外接运行内存，用于容纳图片、音频和较大的程序数据。">PSRAM</span>，更适合多媒体交互。</td></tr>
+          <tr><td><strong>机器人部件</strong></td><td>公开资料可确认板级支持，但不足以确认完整量产机器人 <span class="term" tabindex="0" data-tip="物料清单：制造一台产品需要的所有零件、数量和规格。">BOM</span>、外壳、舵机、电池和采购渠道。</td><td>公开资料明确包含屏幕、摄像头、双麦克风、扬声器、两个<span class="term" tabindex="0" data-tip="可以读取实际位置并反馈给控制程序的舵机。">反馈舵机</span>、<span class="term" tabindex="0" data-tip="可分别控制红、绿、蓝三种颜色的灯珠。">RGB LED</span>、电池、传感器和外壳安装生态。</td></tr>
+          <tr><td><strong>扩展接口</strong></td><td>取决于所选 ESP32 开发板与 <span class="term" tabindex="0" data-tip="乐鑫官方开发框架，提供芯片驱动、网络和系统组件。">ESP-IDF</span> 外设能力。</td><td>3 个 <span class="term" tabindex="0" data-tip="统一插头的传感器接口，通常插上线即可连接模块。">Grove</span> 接口、<span class="term" tabindex="0" data-tip="小型可拆卸存储卡，用于保存文件、图片和日志。">microSD</span>、<span class="term" tabindex="0" data-tip="近距离无线通信，常用于门卡、标签和轻触配对。">NFC</span>、红外、LEGO 兼容安装孔等。</td></tr>
+          <tr><td><strong>运动能力</strong></td><td>需要自行选舵机、电机、结构件和控制策略。</td><td>水平约 360 度连续旋转，垂直约 90 度；垂直舵机建议限制在约 5 至 85 度。</td></tr>
+        </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">功能与开发体验</h2>
+      <div class="grid three">
+        <article class="card"><h3>ESP-Claw 强项</h3><p>对话式定义设备行为、LLM 工具调用、本地规则持久化、Lua <span class="term" tabindex="0" data-tip="同步会等待任务完成；异步可在等待时继续处理其他任务。">同步与异步执行</span>、多种 API 风格、自定义<span class="term" tabindex="0" data-tip="服务的网络访问地址，用于连接不同模型或后台。">端点</span>、MCP 和 IM 通道。</p></article>
+        <article class="card"><h3>StackChan 强项</h3><p>语音唤醒、语音问答、表情、动作、手机 App、远程视频、<span class="term" tabindex="0" data-tip="乐鑫设备之间不经过路由器也能直接通信的无线协议。">ESP-NOW</span> 遥控、舞蹈、<span class="term" tabindex="0" data-tip="通过网络直接更新设备固件，不需要插数据线。">OTA</span>、App Center、红外、NFC 与 <span class="term" tabindex="0" data-tip="开源家庭自动化平台，可以统一控制灯、传感器和机器人。">Home Assistant</span> MCP。</p></article>
+        <article class="card"><h3>开发方式</h3><p>StackChan 可使用 <span class="term" tabindex="0" data-tip="面向微控制器的易用开发平台，适合快速编写硬件程序。">Arduino</span>、<span class="term" tabindex="0" data-tip="M5Stack 的图形化低代码开发工具。">UiFlow2</span>、<span class="term" tabindex="0" data-tip="管理嵌入式项目、依赖和编译流程的开发工具。">PlatformIO</span>、ESP-IDF，也可使用社区 MOD 的 JavaScript / TypeScript 与浏览器工具。</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">可扩展性评分 <small>基于公开架构的工程判断，不是官方评级</small></h2>
+      <div class="panel">
+        <div class="score"><strong>硬件起步</strong><div><div class="bar"><div class="fill green" style="width:90%"></div></div><small class="muted">StackChan 更高：部件完整，少做机械整合</small></div></div>
+        <div class="score"><strong>软件扩展</strong><div><div class="bar"><div class="fill" style="width:88%"></div></div><small class="muted">两者都强：StackChan 偏应用，ESP-Claw 偏设备 Agent</small></div></div>
+        <div class="score"><strong>从零自研</strong><div><div class="bar"><div class="fill" style="width:92%"></div></div><small class="muted">ESP-Claw 更自由，但需要自己补齐硬件与产品化工作</small></div></div>
+        <div class="score"><strong>快速验证</strong><div><div class="bar"><div class="fill green" style="width:94%"></div></div><small class="muted">StackChan 更快：买到硬件即可开始验证交互</small></div></div>
+        <div class="score"><strong>平台化潜力</strong><div><div class="bar"><div class="fill" style="width:93%"></div></div><small class="muted">ESP-Claw 更强：适合沉淀统一设备能力层</small></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">成本与许可证</h2>
+      <div class="grid two">
+        <article class="panel">
+          <h3>实际落地成本</h3>
+          <p class="cost">StackChan：硬件采购成本较明确</p>
+          <p>主要成本是整机或套件价格、运输、备件和云端 AI 服务。它减少了屏幕、音频、舵机、电池、外壳和装配的隐性成本。</p>
+          <p class="cost">ESP-Claw：软件免费不等于整机便宜</p>
+          <p>需要额外预算主控板、舵机或电机、结构件、电池、摄像头、麦克风、扬声器、<span class="term" tabindex="0" data-tip="印刷电路板：把芯片和电子元件连接在一起的硬板。">PCB</span>、调试和后续维护。公开资料不足以给出 Ditto 完整量产 BOM 的可靠总价。</p>
+        </article>
+        <article class="panel">
+          <h3>许可证注意事项</h3>
+          <p>原始社区 Stack-chan 仓库使用 Apache License 2.0。M5Stack 官方仓库中曾包含 `SCServo_lib` GPLv3 组件，最终产品应逐项核对实际固件依赖和分发义务。</p>
+          <p>ESP-Claw 及其组件也应以目标提交中的 LICENSE、NOTICE 和第三方依赖声明为准。商业化前应做一次完整的许可证清单审查，不能只看仓库首页。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">社区与项目成熟度</h2>
+      <div class="grid two">
+        <article class="card"><h3>StackChan 的优势与限制</h3><p>有 M5Stack 官方仓库、原始社区仓库、产品资料、3D 外壳、电路图、浏览器模拟器、MOD Gallery 和编辑工具，学习路径清晰。需要注意官方 README 提到仓库更新可能滞后于官方固件和手机 App。</p></article>
+        <article class="card"><h3>ESP-Claw 的优势与限制</h3><p>更适合研究 Agent 与设备融合，能把能力下沉到边缘设备。限制是它不是一套完整机器人产品，机械、电源、媒体交互和量产细节需要自行验证。</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">推荐落地方案 <small>把两个项目组合起来</small></h2>
+      <div class="panel signal green">
+        <div class="architecture">
+          <div class="layer green"><b>StackChan</b><span>负责屏幕、表情、语音、动作、摄像头、传感器和机器人身体</span></div>
+          <div class="arrow">↑↓</div>
+          <div class="layer"><b>Agent / MCP 服务</b><span>负责对话、记忆、家庭自动化、业务规则、权限和模型切换</span></div>
+          <div class="arrow">↑↓</div>
+          <div class="layer orange"><b>ESP-Claw 风格适配层</b><span>把 `look`、`speak`、`set_expression`、`read_sensor` 等高层能力暴露给 Agent</span></div>
+        </div>
+        <p style="margin-bottom:0"><strong>不要优先暴露任意 GPIO 或任意电机控制。</strong>先提供高层、可验证、可限幅的工具，例如 `robot.look(direction)`、`robot.speak(text)`、`robot.play_animation(name)` 和 `robot.read_sensor(name)`。</p>
+      </div>
+      <div class="grid two" style="margin-top:16px">
+        <article class="card"><h3>第一阶段：验证想法</h3><ol><li>购买 StackChan 或 CoreS3 兼容硬件。</li><li>用现有 MOD、表情和动作能力做最小演示。</li><li>确认你真正需要的传感器、动作和对话流程。</li></ol></article>
+        <article class="card"><h3>第二阶段：平台化</h3><ol><li>部署独立 Agent / MCP 服务。</li><li>为机器人建立稳定的高层能力接口。</li><li>再评估是否把部分 Agent 能力下沉到 ESP-Claw / Ditto。</li></ol></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">官方来源</h2>
+      <div class="grid two">
+        <article class="card"><h3>ESP-Claw / Ditto</h3><p><a href="https://github.com/espressif/esp-claw" target="_blank" rel="noopener">ESP-Claw 官方仓库</a></p><p><a href="https://github.com/espressif/esp-claw/commit/dc1eecde02fed2216f732e4f57988f9e75bc940d" target="_blank" rel="noopener">Ditto 板级支持提交</a></p><p><a href="https://www.espressif.com/en/products/socs/esp32-c5" target="_blank" rel="noopener">ESP32-C5 官方资料</a></p></article>
+        <article class="card"><h3>StackChan</h3><p><a href="https://github.com/m5stack/StackChan" target="_blank" rel="noopener">M5Stack 官方 StackChan 仓库</a></p><p><a href="https://github.com/stack-chan/stack-chan" target="_blank" rel="noopener">原始社区 Stack-chan 仓库</a></p><p><a href="https://docs.m5stack.com/en/StackChan" target="_blank" rel="noopener">M5Stack 官方产品文档</a></p><p><a href="https://shop.m5stack.com/products/stackchan-kawaii-co-created-open-source-ai-desktop-robot" target="_blank" rel="noopener">官方产品页</a></p><p><a href="https://github.com/m5stack/StackChan/issues/52" target="_blank" rel="noopener">许可证讨论</a></p></article>
+      </div>
+    </section>
+
+    <footer>
+      报告说明：结论基于公开仓库、文档和产品页面。价格、库存、固件版本和第三方依赖会变化；在采购或商业化前，应重新核验 BOM、许可证、接口兼容性和当前提交状态。
+    </footer>
+  </main>
+  <div class="tooltip" role="tooltip" aria-hidden="true"></div>
+  <script>
+    const terms = Array.from(document.querySelectorAll('.term'));
+    const tooltip = document.querySelector('.tooltip');
+    let activeTerm = null;
+    const showTooltip = (term) => {
+      activeTerm = term;
+      tooltip.textContent = term.dataset.tip;
+      tooltip.classList.add('is-visible');
+      tooltip.setAttribute('aria-hidden', 'false');
+      const rect = term.getBoundingClientRect();
+      const tipRect = tooltip.getBoundingClientRect();
+      const gap = 10;
+      const left = Math.max(8, Math.min(window.innerWidth - tipRect.width - 8, rect.left + (rect.width - tipRect.width) / 2));
+      const belowTop = rect.bottom + gap;
+      const aboveTop = rect.top - tipRect.height - gap;
+      const top = belowTop + tipRect.height <= window.innerHeight - 8 ? belowTop : Math.max(8, aboveTop);
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    };
+    const hideTooltip = () => {
+      activeTerm = null;
+      tooltip.classList.remove('is-visible');
+      tooltip.setAttribute('aria-hidden', 'true');
+    };
+    terms.forEach((term) => {
+      term.addEventListener('mouseenter', () => showTooltip(term));
+      term.addEventListener('mouseleave', hideTooltip);
+      term.addEventListener('focus', () => showTooltip(term));
+      term.addEventListener('blur', hideTooltip);
+      term.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (activeTerm === term) hideTooltip(); else showTooltip(term);
+      });
+    });
+    window.addEventListener('resize', () => { if (activeTerm) showTooltip(activeTerm); });
+    window.addEventListener('scroll', () => { if (activeTerm) showTooltip(activeTerm); }, true);
+    document.addEventListener('click', hideTooltip);
+  </script>
+</body>
+</html>
