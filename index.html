@@ -3,48 +3,253 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Static Pages</title>
+  <title>Static Pages · 研究交付物索引</title>
+  <meta name="description" content="自行车灯具市场研究（前灯/雷达尾灯）与开源硬件调研的交互报告索引。">
   <style>
-    :root { color-scheme: light; --ink:#17212b; --muted:#5f6b76; --line:#dce3e8; --blue:#2364aa; }
-    * { box-sizing: border-box; }
-    body { margin:0; background:#f7f9fa; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
-    main { max-width:900px; margin:0 auto; padding:56px 22px; }
-    h1 { margin:0; font-size:36px; letter-spacing:0; }
-    .lead { color:var(--muted); margin:10px 0 30px; }
-    .site { display:block; padding:20px; color:inherit; text-decoration:none; background:#fff; border:1px solid var(--line); border-radius:8px; }
-    .site:hover { border-color:var(--blue); }
-    .site strong { display:block; color:var(--blue); font-size:20px; }
-    .site span { display:block; margin-top:5px; color:var(--muted); }
+    :root {
+      --ink:#0f172a; --ink-soft:#334155; --muted:#64748b; --faint:#94a3b8;
+      --line:#e2e8f0; --bg:#f6f8fb; --card:#ffffff;
+      --accent:#2563eb; --accent-2:#0ea5e9;
+      --amber:#f59e0b; --amber-soft:#fef3c7;
+      --cyan:#0891b2; --cyan-soft:#cffafe;
+      --violet:#8b5cf6; --violet-soft:#ede9fe;
+      --radius:14px; --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);
+      --shadow-hover:0 6px 18px rgba(15,23,42,.12),0 20px 44px rgba(15,23,42,.10);
+      --sidebar-w:248px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.5; }
+    a { text-decoration:none; color:inherit; }
+
+    .app { display:flex; min-height:100vh; }
+
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+      width:var(--sidebar-w); flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+      background:linear-gradient(180deg,#0b1220,#111c33); color:#cbd5e1; display:flex; flex-direction:column;
+      padding:22px 16px; border-right:1px solid rgba(255,255,255,.06);
+    }
+    .brand { display:flex; align-items:center; gap:12px; padding:4px 6px 18px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .brand-logo { width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:grid; place-items:center; color:#fff; font-weight:800; font-size:17px; letter-spacing:.5px; box-shadow:0 6px 16px rgba(37,99,235,.35); }
+    .brand h1 { margin:0; font-size:17px; color:#fff; }
+    .brand p { margin:2px 0 0; font-size:11.5px; color:#94a3b8; }
+
+    .nav { margin-top:18px; flex:1; }
+    .nav-group { margin-bottom:18px; }
+    .nav-cat-label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#64748b; padding:6px 10px; }
+    .nav-link { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; color:#cbd5e1; font-size:14px; font-weight:500; transition:.15s; }
+    .nav-link:hover { background:rgba(255,255,255,.06); color:#fff; }
+    .nav-link.active { background:linear-gradient(135deg,rgba(37,99,235,.28),rgba(14,165,233,.22)); color:#fff; }
+    .nav-link .ico { width:16px; height:16px; flex-shrink:0; }
+    .nav-link .badge { margin-left:auto; font-size:11px; background:rgba(255,255,255,.10); color:#cbd5e1; border-radius:999px; padding:1px 8px; }
+    .sidebar-foot { padding:14px 10px 4px; border-top:1px solid rgba(255,255,255,.08); }
+    .sidebar-foot a { display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:#94a3b8; }
+    .sidebar-foot a:hover { color:#fff; }
+
+    /* ---------- Content ---------- */
+    .content { flex:1; min-width:0; padding:0 40px 64px; max-width:1200px; margin:0 auto; }
+    .hero { padding:44px 0 30px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--accent); font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+    .eyebrow::before { content:""; width:18px; height:2px; background:var(--accent); border-radius:2px; }
+    .hero h2 { margin:10px 0 8px; font-size:34px; font-weight:800; letter-spacing:-.02em; }
+    .hero .lead { margin:0; max-width:640px; color:var(--muted); font-size:15.5px; }
+    .hero-stats { display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; }
+    .stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 18px; box-shadow:var(--shadow); }
+    .stat b { display:block; font-size:22px; font-weight:800; color:var(--ink); }
+    .stat span { font-size:12px; color:var(--muted); }
+
+    /* ---------- Category section ---------- */
+    .category { margin-top:38px; scroll-margin-top:20px; }
+    .cat-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--line); }
+    .cat-title-wrap { display:flex; align-items:baseline; gap:10px; }
+    .cat-header h3 { margin:0; font-size:20px; font-weight:700; }
+    .cat-count { font-size:12px; color:var(--muted); background:var(--card); border:1px solid var(--line); padding:2px 10px; border-radius:999px; }
+    .cat-count::before { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:currentColor; margin-right:6px; }
+    .cat-desc { margin:0; font-size:13px; color:var(--muted); margin-left:auto; }
+
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+
+    .card {
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px;
+      display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow); transition:.18s; position:relative; overflow:hidden;
+    }
+    .card:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); }
+    .card::before { content:""; position:absolute; left:0; top:0; height:100%; width:4px; opacity:.9; }
+    .card.theme-amber::before { background:var(--amber); }
+    .card.theme-cyan::before { background:var(--cyan); }
+    .card.theme-violet::before { background:var(--violet); }
+    .card-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .tag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; }
+    .tag-market { background:#f1f5f9; color:var(--ink-soft); }
+    .tag-type-amber { background:var(--amber-soft); color:#b45309; }
+    .tag-type-cyan { background:var(--cyan-soft); color:#0e7490; }
+    .tag-type-violet { background:var(--violet-soft); color:#6d28d9; }
+    .card-title { font-size:16.5px; font-weight:700; color:var(--ink); line-height:1.35; }
+    .card-desc { margin:0; font-size:13.5px; color:var(--muted); flex:1; }
+    .card-go { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent); }
+    .card-go svg { width:14px; height:14px; transition:.15s; }
+    .card:hover .card-go svg { transform:translateX(3px); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:640px) {
+      .hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .stat b { font-size:19px; }
+      .hero h2 { font-size:24px; }
+    }
+    @media (max-width:940px) {
+      .app { flex-direction:column; }
+      .sidebar { position:static; width:100%; height:auto; flex-direction:column; padding:14px 16px; }
+      .nav { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+      .nav-group { margin:0; }
+      .nav-cat-label { display:none; }
+      .nav-link { padding:7px 12px; font-size:13px; }
+      .nav-link .badge { display:none; }
+      .content { padding:0 18px 48px; }
+      .hero h2 { font-size:26px; }
+      .cat-header { flex-wrap:wrap; }
+      .cat-desc { margin-left:0; width:100%; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Static Pages</h1>
-    <p class="lead">静态网站与交互报告索引</p>
-    <a class="site" href="./robot-projects/">
-      <strong>ESP-Claw / Ditto 与 StackChan 调研报告</strong>
-      <span>开源桌面机器人项目的架构、硬件、扩展性和落地建议。</span>
-    </a>
-    <a class="site" href="./competitor-matrix/">
-      <strong>欧洲自行车前灯竞品对比</strong>
-      <span>六款自行车前灯的规格、市场定位、用户声音和评价证据对比。</span>
-    </a>
-    <a class="site" href="./bike-headlights-us/">
-      <strong>美国站自行车前灯 · 品牌价格路标</strong>
-      <span>Amazon US 在售 41 款自行车前灯（Magicshine/Ravemen/Lezyne）的「品牌 × 价格」定位路标。</span>
-    </a>
-    <a class="site" href="./bike-headlights-eu/">
-      <strong>欧元站自行车前灯 · 品牌价格路标</strong>
-      <span>Amazon 德/法/意/西（EUR）在售自行车前灯的「品牌 × 价格」定位路标；含 SIGMA/Trelock/OLIGHT 等，欧元计价。</span>
-    </a>
-    <a class="site" href="./de-bike-radar-taillight/">
-      <strong>德国站自行车雷达尾灯</strong>
-      <span>五款德国站在售雷达尾灯的市场定位（雷达距离 × 售价）与销量趋势。</span>
-    </a>
-    <a class="site" href="./radar-tail-light-roadmap/">
-      <strong>全球雷达尾灯 · 品牌价格路标</strong>
-      <span>全球九站在售 29 款雷达尾灯的「品牌 × 价格」定位路标；按入门/中端/旗舰价格段底色分区，段内销量前三标注排名。</span>
-    </a>
-  </main>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">SP</div>
+        <div><h1>Static Pages</h1><p>研究与交付物索引</p></div>
+      </div>
+      <nav class="nav" aria-label="分类导航">
+        <a class="nav-link" href="#top">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10"/></svg>
+          概览
+        </a>
+        <div class="nav-group">
+          <div class="nav-cat-label">产品调研</div>
+          <a class="nav-link" href="#headlights">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-6 6c0 2 1 3.5 2 4.5V16h8v-2.5c1-1 2-2.5 2-4.5a6 6 0 0 0-6-6Z"/></svg>
+            自行车前灯 <span class="badge">3</span>
+          </a>
+          <a class="nav-link" href="#radar">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M19 12a7 7 0 0 0-14 0M8 16a4 4 0 0 0 8 0"/><path d="M12 12v6"/></svg>
+            自行车雷达尾灯 <span class="badge">2</span>
+          </a>
+        </div>
+        <div class="nav-group">
+          <div class="nav-cat-label">技术调研</div>
+          <a class="nav-link" href="#hardware">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><path d="M9 17h6"/></svg>
+            硬件 · 机器人 <span class="badge">1</span>
+          </a>
+        </div>
+      </nav>
+      <div class="sidebar-foot">
+        <a href="https://github.com/Paipai112/static-pages" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.8 1.2 1.8 1.2 1 .1 1.9-.5 2.4-1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.6 11.6 0 0 1 6 0C17.4 3.9 18.4 4.2 18.4 4.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.7.9.7 1.9v2.9c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5Z"/></svg>
+          GitHub · 源码
+        </a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="hero" id="top">
+        <p class="eyebrow">静态研究交付物 · 索引</p>
+        <h2>研究与交付站点总览</h2>
+        <p class="lead">自行车灯具市场研究（前灯 / 雷达尾灯）与开源硬件调研的交互报告，按产品域分类浏览。</p>
+        <div class="hero-stats">
+          <div class="stat"><b>6</b><span>交付站点</span></div>
+          <div class="stat"><b>3</b><span>产品类别</span></div>
+          <div class="stat"><b>5</b><span>灯具研究</span></div>
+          <div class="stat"><b>1</b><span>硬件调研</span></div>
+        </div>
+      </header>
+
+      <section id="headlights" class="category">
+        <header class="cat-header">
+          <div class="cat-title-wrap"><h3>自行车前灯</h3><span class="cat-count" style="color:var(--amber);">3 站点</span></div>
+          <p class="cat-desc">Amazon 美国站与欧元站（德/法/意/西）的前灯市场定位路标 + 欧洲前灯竞品对比。</p>
+        </header>
+        <div class="cards">
+          <a class="card theme-amber" href="./bike-headlights-us/">
+            <div class="card-tags"><span class="tag tag-market">US · USD</span><span class="tag tag-type-amber">品牌价格路标</span></div>
+            <strong class="card-title">美国站自行车前灯 · 品牌价格路标</strong>
+            <p class="card-desc">Amazon US 在售 41 款自行车前灯（Magicshine / Ravemen / Lezyne）的「品牌 × 价格」定位路标，含销量与销售估算。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="card theme-amber" href="./bike-headlights-eu/">
+            <div class="card-tags"><span class="tag tag-market">DE·FR·IT·ES · EUR</span><span class="tag tag-type-amber">品牌价格路标</span></div>
+            <strong class="card-title">欧元站自行车前灯 · 品牌价格路标</strong>
+            <p class="card-desc">Amazon 德/法/意/西（EUR）41 款前灯的「品牌 × 价格」定位路标；含 SIGMA / Trelock / OLIGHT 等品牌，欧元计价。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="card theme-amber" href="./competitor-matrix/">
+            <div class="card-tags"><span class="tag tag-market">欧洲 · EUR</span><span class="tag tag-type-amber">竞品对比</span></div>
+            <strong class="card-title">欧洲自行车前灯竞品对比</strong>
+            <p class="card-desc">六款自行车前灯的规格、市场定位、用户声音与评价证据对比工作台。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </section>
+
+      <section id="radar" class="category">
+        <header class="cat-header">
+          <div class="cat-title-wrap"><h3>自行车雷达尾灯</h3><span class="cat-count" style="color:var(--cyan);">2 站点</span></div>
+          <p class="cat-desc">雷达尾灯的品牌 × 价格全球路标与德国站对比。</p>
+        </header>
+        <div class="cards">
+          <a class="card theme-cyan" href="./radar-tail-light-roadmap/">
+            <div class="card-tags"><span class="tag tag-market">全球 · 9 站 · 多币种</span><span class="tag tag-type-cyan">品牌价格路标</span></div>
+            <strong class="card-title">全球雷达尾灯 · 品牌价格路标</strong>
+            <p class="card-desc">全球九站在售 29 款雷达尾灯的「品牌 × 价格」定位路标；入门/中端/旗舰价格段底色分区，段内销量前三标注排名。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="card theme-cyan" href="./de-bike-radar-taillight/">
+            <div class="card-tags"><span class="tag tag-market">德国站 · EUR</span><span class="tag tag-type-cyan">竞品对比</span></div>
+            <strong class="card-title">德国站自行车雷达尾灯</strong>
+            <p class="card-desc">五款德国站在售雷达尾灯的市场定位（雷达距离 × 售价）与销量趋势对比。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </section>
+
+      <section id="hardware" class="category">
+        <header class="cat-header">
+          <div class="cat-title-wrap"><h3>硬件 · 机器人</h3><span class="cat-count" style="color:var(--violet);">1 站点</span></div>
+          <p class="cat-desc">开源桌面机器人项目调研。</p>
+        </header>
+        <div class="cards">
+          <a class="card theme-violet" href="./robot-projects/">
+            <div class="card-tags"><span class="tag tag-market">开源 · 硬件</span><span class="tag tag-type-violet">调研报告</span></div>
+            <strong class="card-title">ESP-Claw / Ditto 与 StackChan 调研报告</strong>
+            <p class="card-desc">开源桌面机器人项目的架构、硬件、扩展性与落地建议。</p>
+            <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      // 滚动高亮当前分类（scrollspy）
+      const links = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter((el) => el instanceof HTMLElement);
+      const setActive = (id) => {
+        links.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+      };
+      // 按滚动位置计算当前分类，避免 IntersectionObserver 在快速跳转下滞后
+      const update = () => {
+        const pos = window.scrollY + 140;
+        let current = 'top';
+        sections.forEach((section) => { if (section.offsetTop <= pos) current = section.id; });
+        setActive(current);
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
+    })();
+  </script>
 </body>
 </html>
