@@ -13,6 +13,9 @@
       --amber:#f59e0b; --amber-soft:#fef3c7;
       --cyan:#0891b2; --cyan-soft:#cffafe;
       --violet:#8b5cf6; --violet-soft:#ede9fe;
+      --blue:#2563eb; --blue-soft:rgba(37,99,235,.12);
+      --green:#16a34a; --green-soft:rgba(22,163,74,.14);
+      --rose:#e11d48; --rose-soft:rgba(225,29,72,.11);
       --radius:14px; --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);
       --shadow-hover:0 6px 18px rgba(15,23,42,.12),0 20px 44px rgba(15,23,42,.10);
       --sidebar-w:248px;
@@ -37,7 +40,8 @@
 
     .nav { margin-top:18px; flex:1; }
     .nav-group { margin-bottom:18px; }
-    .nav-cat-label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#64748b; padding:6px 10px; }
+    .nav-cat-label { font-size:13px; font-weight:600; color:#cbd5e1; padding:16px 12px 6px; letter-spacing:.02em; border-top:1px solid rgba(255,255,255,.08); margin-top:6px; }
+    .nav-cat-label svg { width:13px; height:13px; vertical-align:-2px; margin-right:6px; opacity:.75; }
     .nav-link { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; color:#cbd5e1; font-size:14px; font-weight:500; transition:.15s; }
     .nav-link:hover { background:rgba(255,255,255,.06); color:#fff; }
     .nav-link.active { background:linear-gradient(135deg,rgba(37,99,235,.28),rgba(14,165,233,.22)); color:#fff; }
@@ -76,15 +80,18 @@
     }
     .card:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); }
     .card::before { content:""; position:absolute; left:0; top:0; height:100%; width:4px; opacity:.9; }
-    .card.theme-amber::before { background:var(--amber); }
-    .card.theme-cyan::before { background:var(--cyan); }
-    .card.theme-violet::before { background:var(--violet); }
+    .card.type-roadmap::before { background:var(--blue); }
+    .card.type-compare::before { background:var(--green); }
+    .card.type-report::before { background:var(--rose); }
+    .card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:-4px 0 4px; }
+    .type-badge { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; padding:5px 12px; border-radius:999px; }
+    .type-badge svg { width:14px; height:14px; }
+    .card.type-roadmap .type-badge { background:var(--blue-soft); color:#1d4ed8; }
+    .card.type-compare .type-badge { background:var(--green-soft); color:#15803d; }
+    .card.type-report .type-badge { background:var(--rose-soft); color:#be123c; }
     .card-tags { display:flex; flex-wrap:wrap; gap:6px; }
     .tag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; }
     .tag-market { background:#f1f5f9; color:var(--ink-soft); }
-    .tag-type-amber { background:var(--amber-soft); color:#b45309; }
-    .tag-type-cyan { background:var(--cyan-soft); color:#0e7490; }
-    .tag-type-violet { background:var(--violet-soft); color:#6d28d9; }
     .card-title { font-size:16.5px; font-weight:700; color:var(--ink); line-height:1.35; }
     .card-desc { margin:0; font-size:13.5px; color:var(--muted); flex:1; }
     .card-go { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent); }
@@ -125,7 +132,7 @@
           概览
         </a>
         <div class="nav-group">
-          <div class="nav-cat-label">产品调研</div>
+          <div class="nav-cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg>产品调研</div>
           <a class="nav-link" href="#headlights">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-6 6c0 2 1 3.5 2 4.5V16h8v-2.5c1-1 2-2.5 2-4.5a6 6 0 0 0-6-6Z"/></svg>
             自行车前灯 <span class="badge">3</span>
@@ -136,7 +143,7 @@
           </a>
         </div>
         <div class="nav-group">
-          <div class="nav-cat-label">技术调研</div>
+          <div class="nav-cat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/><circle cx="12" cy="12" r="3"/></svg>技术调研</div>
           <a class="nav-link" href="#hardware">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M8 4h8"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><path d="M9 17h6"/></svg>
             硬件 · 机器人 <span class="badge">1</span>
@@ -170,20 +177,20 @@
           <p class="cat-desc">Amazon 美国站与欧元站（德/法/意/西）的前灯市场定位路标 + 欧洲前灯竞品对比。</p>
         </header>
         <div class="cards">
-          <a class="card theme-amber" href="./bike-headlights-us/">
-            <div class="card-tags"><span class="tag tag-market">US · USD</span><span class="tag tag-type-amber">品牌价格路标</span></div>
+          <a class="card type-roadmap" href="./bike-headlights-us/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg>品牌价格路标</span><span class="tag tag-market">US · USD</span></div>
             <strong class="card-title">美国站自行车前灯 · 品牌价格路标</strong>
             <p class="card-desc">Amazon US 在售 41 款自行车前灯（Magicshine / Ravemen / Lezyne）的「品牌 × 价格」定位路标，含销量与销售估算。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-          <a class="card theme-amber" href="./bike-headlights-eu/">
-            <div class="card-tags"><span class="tag tag-market">DE·FR·IT·ES · EUR</span><span class="tag tag-type-amber">品牌价格路标</span></div>
+          <a class="card type-roadmap" href="./bike-headlights-eu/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg>品牌价格路标</span><span class="tag tag-market">DE·FR·IT·ES · EUR</span></div>
             <strong class="card-title">欧元站自行车前灯 · 品牌价格路标</strong>
             <p class="card-desc">Amazon 德/法/意/西（EUR）41 款前灯的「品牌 × 价格」定位路标；含 SIGMA / Trelock / OLIGHT 等品牌，欧元计价。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-          <a class="card theme-amber" href="./competitor-matrix/">
-            <div class="card-tags"><span class="tag tag-market">欧洲 · EUR</span><span class="tag tag-type-amber">竞品对比</span></div>
+          <a class="card type-compare" href="./competitor-matrix/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg>竞品对比</span><span class="tag tag-market">欧洲 · EUR</span></div>
             <strong class="card-title">欧洲自行车前灯竞品对比</strong>
             <p class="card-desc">六款自行车前灯的规格、市场定位、用户声音与评价证据对比工作台。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -197,14 +204,14 @@
           <p class="cat-desc">雷达尾灯的品牌 × 价格全球路标与德国站对比。</p>
         </header>
         <div class="cards">
-          <a class="card theme-cyan" href="./radar-tail-light-roadmap/">
-            <div class="card-tags"><span class="tag tag-market">全球 · 9 站 · 多币种</span><span class="tag tag-type-cyan">品牌价格路标</span></div>
+          <a class="card type-roadmap" href="./radar-tail-light-roadmap/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg>品牌价格路标</span><span class="tag tag-market">全球 · 9 站 · 多币种</span></div>
             <strong class="card-title">全球雷达尾灯 · 品牌价格路标</strong>
             <p class="card-desc">全球九站在售 29 款雷达尾灯的「品牌 × 价格」定位路标；入门/中端/旗舰价格段底色分区，段内销量前三标注排名。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
-          <a class="card theme-cyan" href="./de-bike-radar-taillight/">
-            <div class="card-tags"><span class="tag tag-market">德国站 · EUR</span><span class="tag tag-type-cyan">竞品对比</span></div>
+          <a class="card type-compare" href="./de-bike-radar-taillight/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg>竞品对比</span><span class="tag tag-market">德国站 · EUR</span></div>
             <strong class="card-title">德国站自行车雷达尾灯</strong>
             <p class="card-desc">五款德国站在售雷达尾灯的市场定位（雷达距离 × 售价）与销量趋势对比。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -218,8 +225,8 @@
           <p class="cat-desc">开源桌面机器人项目调研。</p>
         </header>
         <div class="cards">
-          <a class="card theme-violet" href="./robot-projects/">
-            <div class="card-tags"><span class="tag tag-market">开源 · 硬件</span><span class="tag tag-type-violet">调研报告</span></div>
+          <a class="card type-report" href="./robot-projects/">
+            <div class="card-top"><span class="type-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>调研报告</span><span class="tag tag-market">开源 · 硬件</span></div>
             <strong class="card-title">ESP-Claw / Ditto 与 StackChan 调研报告</strong>
             <p class="card-desc">开源桌面机器人项目的架构、硬件、扩展性与落地建议。</p>
             <span class="card-go">打开展开<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
