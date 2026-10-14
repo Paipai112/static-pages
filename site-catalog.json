@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "sites": [
+    {"slug": "bike-headlights-us", "title": "美国站自行车前灯 · 品牌价格路标", "published_path": "bike-headlights-us/", "source_path": null},
+    {"slug": "bike-headlights-eu", "title": "欧元站自行车前灯 · 品牌价格路标", "published_path": "bike-headlights-eu/", "source_path": null},
+    {"slug": "competitor-matrix", "title": "欧洲自行车前灯竞品对比", "published_path": "competitor-matrix/", "source_path": null},
+    {"slug": "radar-tail-light-roadmap", "title": "全球雷达尾灯 · 品牌价格路标", "published_path": "radar-tail-light-roadmap/", "source_path": null},
+    {"slug": "de-bike-radar-taillight", "title": "德国站自行车雷达尾灯", "published_path": "de-bike-radar-taillight/", "source_path": null},
+    {"slug": "robot-projects", "title": "ESP-Claw / Ditto 与 StackChan 调研报告", "published_path": "robot-projects/", "source_path": null}
+  ]
+}

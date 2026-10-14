@@ -1,0 +1,3 @@
+## Agent collaboration
+
+先读[项目入口](.github/agent-collaboration/README.md)。Agent 日常写操作使用兼容 `github-collaboration >=0.2.0`；缺少/不兼容时仅诊断，见[安装说明](.github/agent-collaboration/INSTALL_SKILL.md)。所有 Agent 默认 Member；治理需有效 Leader（或限域 Bootstrap/Recovery）使用 `github-collaboration-setup`。创建 Issue/首次认领/讨论/审查无需已有实施 claim；实施、提交、推送需当前有效范围。人类可按项目约定参与。

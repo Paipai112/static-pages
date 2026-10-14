@@ -1,0 +1,1058 @@
+{
+  "schema_version": 1,
+  "source_repository_url": "https://github.com/Paipai112/Work-with-Agent",
+  "source_repository_id": 1398932546,
+  "release_tag": "v0.2.0",
+  "resolved_commit_sha": "16907ce50b124ff59d39ea3c4bb74498ef576636",
+  "installation_page_permalink": "https://github.com/Paipai112/Work-with-Agent/blob/16907ce50b124ff59d39ea3c4bb74498ef576636/docs/INSTALL.md",
+  "archive_sha256": "e8caa558f0fde93f7246f00fe9462cb407146b9218d30765236c90fd5b408655",
+  "archive_note": "Downloaded archive byte digest; package digests bind extracted fixed-source files, not archive filename.",
+  "package_digest_algorithm": "SHA256(concat(sorted(relative_path UTF-8 + NUL + raw bytes + NUL)))",
+  "packages": [
+    {
+      "path": ".agents/skills/github-collaboration-setup",
+      "name": "github-collaboration-setup",
+      "version": "0.2.0",
+      "file_count": 53,
+      "package_sha256": "c46187683a25c43ca20d1181656e8dc012ac0cde26e4bd2002510592e9d6eff2",
+      "manifest_sha256": "8801c0e9cfeb3dcc8afdc4eeeaf6f8f17589c2aa9c724b71e93a6af5e4ad4b63",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "8801c0e9cfeb3dcc8afdc4eeeaf6f8f17589c2aa9c724b71e93a6af5e4ad4b63",
+          "bytes": 13650
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "f80f070d572f5963aa26cfca1d35890f3f98d0ad7a1a226c9d9acf822273b111",
+          "bytes": 2403
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "3c143d2c4a5c64415b3b621eec751ae7e5d337f9287f5b2e10bca3249fc10057",
+          "bytes": 176
+        },
+        {
+          "path": "assets/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "assets/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "assets/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "assets/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "assets/templates/managed-blocks/AGENTS.md.block",
+          "sha256": "3274f8758679e80f98bcac3a3e94010fc85b149a42595c52a151c24a948d03d5",
+          "bytes": 528
+        },
+        {
+          "path": "assets/templates/managed-blocks/CLAUDE.md.block",
+          "sha256": "3274f8758679e80f98bcac3a3e94010fc85b149a42595c52a151c24a948d03d5",
+          "bytes": 528
+        },
+        {
+          "path": "assets/templates/managed-blocks/CONTRIBUTING.md.block",
+          "sha256": "12196f7fd8c46d29320aa9cd5830e69d3cf8ee0e601c5ed103d2ee2ed1d77cb0",
+          "bytes": 521
+        },
+        {
+          "path": "assets/templates/project/.github/ISSUE_TEMPLATE/agent-task.yml",
+          "sha256": "11dad4c04a40004d94c25272d883708a7e8c5a444e862f8428c7ca0bca55fbcd",
+          "bytes": 1847
+        },
+        {
+          "path": "assets/templates/project/.github/PULL_REQUEST_TEMPLATE/agent-change.md",
+          "sha256": "0b9931f5869ed4c413c5d3d6bab49bd25901c6a8a591d1d13e5069c4172fe12b",
+          "bytes": 2150
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/INSTALL_SKILL.md",
+          "sha256": "fe10557674165b220056b17288fa8e66828b5c4bb3670af619736945686d07ed",
+          "bytes": 1763
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/METADATA_INPUT.md",
+          "sha256": "f792566ade25ae90c4666aaf25f1f4e824acd16c107a5432d6a8d989ba6fc19f",
+          "bytes": 6591
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/PROTOCOL.md",
+          "sha256": "210baeec063fdae8d70d5a35443ec3e9894d0ffdf6df8c2df5d7e3f5873c8da8",
+          "bytes": 2125
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/README.md",
+          "sha256": "032d8839437f1d6d514ba65b45512b5a2ed32e2747ef154b1e36c310e6c17ac5",
+          "bytes": 1506
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/ROLES.md",
+          "sha256": "4c70cbfe865bde6bbd3dcbbc5d0c68be8882188f947402ed605f9505fd56fe04",
+          "bytes": 929
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/authorization.yml",
+          "sha256": "704b06ec354be9ce4e5e50049dd5ae21c827740ccaf7fcc6c567bbbd289ff9db",
+          "bytes": 333
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/check_pr_metadata.py",
+          "sha256": "f1ed8771899f57dc90ce75ff3cb94e99a47ee63f4c130d38dd3c68ffa81bd500",
+          "bytes": 52818
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collect_pr_metadata.py",
+          "sha256": "1bb5d2f11ebb43f043071eada8e5c52603dfcd7a85f0f56b8cb7e8bba5952270",
+          "bytes": 13625
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/config.yml",
+          "sha256": "f05c252e138206b4649d4edc39d6081ae994e6e670a6505f5d395a61e4a8887b",
+          "bytes": 624
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/managed-resources.yml",
+          "sha256": "9114bc5f827a52f1a8afea1090ce5f06f0f98d79361d22edabb3770df7423686",
+          "bytes": 353
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "assets/templates/project/.github/workflows/agent-collaboration-check.yml",
+          "sha256": "56b1e9eec2e22b76c03392ebd6026ff2510dd438c15a8aeb404d83e5ca669cf1",
+          "bytes": 5880
+        },
+        {
+          "path": "references/actions-and-rulesets.md",
+          "sha256": "072b00f82f5e258d4de65a575c2532ce6fe106ea060671c9d19a942fbe9fe024",
+          "bytes": 3841
+        },
+        {
+          "path": "references/authorization.md",
+          "sha256": "5e9359730e0b8af6e8cd861a38808dec14683f934df098fdc3582335e79e5786",
+          "bytes": 3459
+        },
+        {
+          "path": "references/bootstrap-and-recovery.md",
+          "sha256": "f744cbb63cc90f31d381d3be0200df456572e514fed92558a92b68526248f12d",
+          "bytes": 3883
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/local-configuration.md",
+          "sha256": "258e0b7bce16d1d6493f2dc446bca9bae5b7915dc6c2e4776862f66dac735857",
+          "bytes": 4808
+        },
+        {
+          "path": "references/managed-resources.md",
+          "sha256": "e8b961c50f0f48d069b3471b152053164ee1f086a0cfde4fd86c22aace8caaf1",
+          "bytes": 3931
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/platform-installation.md",
+          "sha256": "123856a17ecfb20efde282a98f30ae510c3f95e8ff745d8a4c3ef40fdbdd8a96",
+          "bytes": 3837
+        },
+        {
+          "path": "references/preflight-and-identity.md",
+          "sha256": "425ce917ed85665fdda8041668897208148f5803d310cdab27063766d55db278",
+          "bytes": 1730
+        },
+        {
+          "path": "references/remote-governance.md",
+          "sha256": "b291cdbfcba748bc450ab5a052a909a4a237d378898210a352eec335e05abca4",
+          "bytes": 4423
+        },
+        {
+          "path": "references/resume-and-recovery.md",
+          "sha256": "75bbc396ceeaa82ed20bda80d481ff3d34cf16bede8aac7b951e6f42c048a060",
+          "bytes": 1854
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "references/upgrade-and-diagnosis.md",
+          "sha256": "7cd4039e9e1a3c42afe09fcf82971077b404036ee469d552e797c7739d99e875",
+          "bytes": 2964
+        },
+        {
+          "path": "scripts/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "scripts/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "scripts/managed_block.py",
+          "sha256": "addc9a88d7185b50c441d390218c816ed9cd937fe5b4b1e74109fbf74e75e6df",
+          "bytes": 10416
+        },
+        {
+          "path": "scripts/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        },
+        {
+          "path": "templates/events/claim.yml",
+          "sha256": "569c7f5608309d7968d86982bfa5f159f7c4c127ad4df10054a0a250135029b0",
+          "bytes": 437
+        },
+        {
+          "path": "templates/events/handoff.yml",
+          "sha256": "ebb367d08206cd7e50fba881a009087a6cd90a7f6ef987696bff0c41802c5ade",
+          "bytes": 692
+        },
+        {
+          "path": "templates/events/reassign.yml",
+          "sha256": "7046d7366d17ac964a0c0c1190442b3bbe3bae8c2acf9f7c7f89ef3aef3f0696",
+          "bytes": 1270
+        },
+        {
+          "path": "templates/events/release.yml",
+          "sha256": "48256ca4c269547537200e35ff1df0396924cb91e3cc4f356005b2bdf5bd070d",
+          "bytes": 709
+        },
+        {
+          "path": "templates/events/research-claim.yml",
+          "sha256": "3c74f6cc604a2dcff7e6d894d8f41e18ab93448534f0773af5a36585002ab267",
+          "bytes": 394
+        },
+        {
+          "path": "templates/events/resume.yml",
+          "sha256": "f0f78ed9b5d496c56af6b35529198554ddc71068e6a08696b5d1c24221a15da4",
+          "bytes": 743
+        }
+      ]
+    },
+    {
+      "path": ".agents/skills/github-collaboration",
+      "name": "github-collaboration",
+      "version": "0.2.0",
+      "file_count": 32,
+      "package_sha256": "29a7e3e519dd51cd863e7de1e9e3eba6a9d58eb139e2223b31b4184b1ae6ba41",
+      "manifest_sha256": "020e638eca07fd39d9839580743ff9614807a7aa5ed009a0eea9ff878ddd385a",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "020e638eca07fd39d9839580743ff9614807a7aa5ed009a0eea9ff878ddd385a",
+          "bytes": 6125
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "00b443fcafc4145f7ae6f76d7d277cdf9418a38932eec2a23b06904857f4e714",
+          "bytes": 1934
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "ddf5b96d26b6054aa5037139ceb475463c1ff9ab3e0d8ee487f88ac2d9ab9b31",
+          "bytes": 204
+        },
+        {
+          "path": "references/claims-and-handoffs.md",
+          "sha256": "1c40cdd399f294bac41e2e903bc28f2338b5291f242f2e27a0a1b052440559fb",
+          "bytes": 4118
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/event-helpers.md",
+          "sha256": "626fab387ba64bf9490c0debc528e4761a4e3813e90e502e56d16be2deb1b9ba",
+          "bytes": 4166
+        },
+        {
+          "path": "references/failure-recovery.md",
+          "sha256": "cb2b9400347eeb47e132b3db062ad6b227c82a2313f75088a34ce76e28b93852",
+          "bytes": 1492
+        },
+        {
+          "path": "references/git-and-pull-requests.md",
+          "sha256": "55c7ec3baf9d288adda95a35d91e0d84aadff9378ef8b3140c3144ae1c582fa5",
+          "bytes": 5434
+        },
+        {
+          "path": "references/identity-and-permissions.md",
+          "sha256": "c00680ffe3ff42d992d075ca2aabd5c313b3bde15e2b4f0ede6547f2a9b1b543",
+          "bytes": 709
+        },
+        {
+          "path": "references/issues-and-results.md",
+          "sha256": "f460a1319d6627d07118ffa226ce64c4ac8604a42d173c484cfffc805271db64",
+          "bytes": 1731
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/preflight.md",
+          "sha256": "8dba603bfc45ee21e2b786b3bb502db504f6c1c86771b1ddb8770f47e9ed0caa",
+          "bytes": 1130
+        },
+        {
+          "path": "references/review-and-merge.md",
+          "sha256": "f8b8411e83a9f0e11b402d5cc35337f009248e0a0a23d0fb000b2c5609f332e5",
+          "bytes": 3365
+        },
+        {
+          "path": "references/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "references/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "references/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "references/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "references/scope-and-checkpoints.md",
+          "sha256": "022a3b259de377cce628b7a113dda534181f7fc19f93893b1b05ef2c4501cb68",
+          "bytes": 2892
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "scripts/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "scripts/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "scripts/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        },
+        {
+          "path": "templates/events/claim.yml",
+          "sha256": "569c7f5608309d7968d86982bfa5f159f7c4c127ad4df10054a0a250135029b0",
+          "bytes": 437
+        },
+        {
+          "path": "templates/events/handoff.yml",
+          "sha256": "ebb367d08206cd7e50fba881a009087a6cd90a7f6ef987696bff0c41802c5ade",
+          "bytes": 692
+        },
+        {
+          "path": "templates/events/reassign.yml",
+          "sha256": "7046d7366d17ac964a0c0c1190442b3bbe3bae8c2acf9f7c7f89ef3aef3f0696",
+          "bytes": 1270
+        },
+        {
+          "path": "templates/events/release.yml",
+          "sha256": "48256ca4c269547537200e35ff1df0396924cb91e3cc4f356005b2bdf5bd070d",
+          "bytes": 709
+        },
+        {
+          "path": "templates/events/research-claim.yml",
+          "sha256": "3c74f6cc604a2dcff7e6d894d8f41e18ab93448534f0773af5a36585002ab267",
+          "bytes": 394
+        },
+        {
+          "path": "templates/events/resume.yml",
+          "sha256": "f0f78ed9b5d496c56af6b35529198554ddc71068e6a08696b5d1c24221a15da4",
+          "bytes": 743
+        },
+        {
+          "path": "templates/pull-request-body.md",
+          "sha256": "0b9931f5869ed4c413c5d3d6bab49bd25901c6a8a591d1d13e5069c4172fe12b",
+          "bytes": 2150
+        },
+        {
+          "path": "templates/review-record.yml",
+          "sha256": "163c8b18f41111c2d5b766df9170795599b9a371c4ec8219e40530773d8756b2",
+          "bytes": 829
+        }
+      ]
+    },
+    {
+      "path": ".agents/skills/github-collaboration-check",
+      "name": "github-collaboration-check",
+      "version": "0.2.0",
+      "file_count": 13,
+      "package_sha256": "85c210485a8587dcd8978563c92712ac7753fe2f3489dc7be7de560b47e2b6a7",
+      "manifest_sha256": "835c4d05d2a205b4be9986e6752aa468b498a4c870897c1b50bbb6ad39521dcd",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "835c4d05d2a205b4be9986e6752aa468b498a4c870897c1b50bbb6ad39521dcd",
+          "bytes": 2937
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "1e2c72690641eda355c1f4f4ce63903b1ce8e6f771f6be6fa8c4635e37d51b9d",
+          "bytes": 1618
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "cbebf28ef682bb7a1e0c5c95d378dc9033ce983f023569fecd281d803c4769e1",
+          "bytes": 327
+        },
+        {
+          "path": "references/checking.md",
+          "sha256": "86792c3247277a3ec5b0eba07c0fc8397510b9d3b24fcbdf3fe300fbbe2ed36d",
+          "bytes": 2360
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "references/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "references/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "references/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        }
+      ]
+    },
+    {
+      "path": ".claude/skills/github-collaboration-setup",
+      "name": "github-collaboration-setup",
+      "version": "0.2.0",
+      "file_count": 53,
+      "package_sha256": "c46187683a25c43ca20d1181656e8dc012ac0cde26e4bd2002510592e9d6eff2",
+      "manifest_sha256": "8801c0e9cfeb3dcc8afdc4eeeaf6f8f17589c2aa9c724b71e93a6af5e4ad4b63",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "8801c0e9cfeb3dcc8afdc4eeeaf6f8f17589c2aa9c724b71e93a6af5e4ad4b63",
+          "bytes": 13650
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "f80f070d572f5963aa26cfca1d35890f3f98d0ad7a1a226c9d9acf822273b111",
+          "bytes": 2403
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "3c143d2c4a5c64415b3b621eec751ae7e5d337f9287f5b2e10bca3249fc10057",
+          "bytes": 176
+        },
+        {
+          "path": "assets/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "assets/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "assets/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "assets/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "assets/templates/managed-blocks/AGENTS.md.block",
+          "sha256": "3274f8758679e80f98bcac3a3e94010fc85b149a42595c52a151c24a948d03d5",
+          "bytes": 528
+        },
+        {
+          "path": "assets/templates/managed-blocks/CLAUDE.md.block",
+          "sha256": "3274f8758679e80f98bcac3a3e94010fc85b149a42595c52a151c24a948d03d5",
+          "bytes": 528
+        },
+        {
+          "path": "assets/templates/managed-blocks/CONTRIBUTING.md.block",
+          "sha256": "12196f7fd8c46d29320aa9cd5830e69d3cf8ee0e601c5ed103d2ee2ed1d77cb0",
+          "bytes": 521
+        },
+        {
+          "path": "assets/templates/project/.github/ISSUE_TEMPLATE/agent-task.yml",
+          "sha256": "11dad4c04a40004d94c25272d883708a7e8c5a444e862f8428c7ca0bca55fbcd",
+          "bytes": 1847
+        },
+        {
+          "path": "assets/templates/project/.github/PULL_REQUEST_TEMPLATE/agent-change.md",
+          "sha256": "0b9931f5869ed4c413c5d3d6bab49bd25901c6a8a591d1d13e5069c4172fe12b",
+          "bytes": 2150
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/INSTALL_SKILL.md",
+          "sha256": "fe10557674165b220056b17288fa8e66828b5c4bb3670af619736945686d07ed",
+          "bytes": 1763
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/METADATA_INPUT.md",
+          "sha256": "f792566ade25ae90c4666aaf25f1f4e824acd16c107a5432d6a8d989ba6fc19f",
+          "bytes": 6591
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/PROTOCOL.md",
+          "sha256": "210baeec063fdae8d70d5a35443ec3e9894d0ffdf6df8c2df5d7e3f5873c8da8",
+          "bytes": 2125
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/README.md",
+          "sha256": "032d8839437f1d6d514ba65b45512b5a2ed32e2747ef154b1e36c310e6c17ac5",
+          "bytes": 1506
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/ROLES.md",
+          "sha256": "4c70cbfe865bde6bbd3dcbbc5d0c68be8882188f947402ed605f9505fd56fe04",
+          "bytes": 929
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/authorization.yml",
+          "sha256": "704b06ec354be9ce4e5e50049dd5ae21c827740ccaf7fcc6c567bbbd289ff9db",
+          "bytes": 333
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/check_pr_metadata.py",
+          "sha256": "f1ed8771899f57dc90ce75ff3cb94e99a47ee63f4c130d38dd3c68ffa81bd500",
+          "bytes": 52818
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/collect_pr_metadata.py",
+          "sha256": "1bb5d2f11ebb43f043071eada8e5c52603dfcd7a85f0f56b8cb7e8bba5952270",
+          "bytes": 13625
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/config.yml",
+          "sha256": "f05c252e138206b4649d4edc39d6081ae994e6e670a6505f5d395a61e4a8887b",
+          "bytes": 624
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/managed-resources.yml",
+          "sha256": "9114bc5f827a52f1a8afea1090ce5f06f0f98d79361d22edabb3770df7423686",
+          "bytes": 353
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "assets/templates/project/.github/agent-collaboration/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "assets/templates/project/.github/workflows/agent-collaboration-check.yml",
+          "sha256": "56b1e9eec2e22b76c03392ebd6026ff2510dd438c15a8aeb404d83e5ca669cf1",
+          "bytes": 5880
+        },
+        {
+          "path": "references/actions-and-rulesets.md",
+          "sha256": "072b00f82f5e258d4de65a575c2532ce6fe106ea060671c9d19a942fbe9fe024",
+          "bytes": 3841
+        },
+        {
+          "path": "references/authorization.md",
+          "sha256": "5e9359730e0b8af6e8cd861a38808dec14683f934df098fdc3582335e79e5786",
+          "bytes": 3459
+        },
+        {
+          "path": "references/bootstrap-and-recovery.md",
+          "sha256": "f744cbb63cc90f31d381d3be0200df456572e514fed92558a92b68526248f12d",
+          "bytes": 3883
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/local-configuration.md",
+          "sha256": "258e0b7bce16d1d6493f2dc446bca9bae5b7915dc6c2e4776862f66dac735857",
+          "bytes": 4808
+        },
+        {
+          "path": "references/managed-resources.md",
+          "sha256": "e8b961c50f0f48d069b3471b152053164ee1f086a0cfde4fd86c22aace8caaf1",
+          "bytes": 3931
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/platform-installation.md",
+          "sha256": "123856a17ecfb20efde282a98f30ae510c3f95e8ff745d8a4c3ef40fdbdd8a96",
+          "bytes": 3837
+        },
+        {
+          "path": "references/preflight-and-identity.md",
+          "sha256": "425ce917ed85665fdda8041668897208148f5803d310cdab27063766d55db278",
+          "bytes": 1730
+        },
+        {
+          "path": "references/remote-governance.md",
+          "sha256": "b291cdbfcba748bc450ab5a052a909a4a237d378898210a352eec335e05abca4",
+          "bytes": 4423
+        },
+        {
+          "path": "references/resume-and-recovery.md",
+          "sha256": "75bbc396ceeaa82ed20bda80d481ff3d34cf16bede8aac7b951e6f42c048a060",
+          "bytes": 1854
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "references/upgrade-and-diagnosis.md",
+          "sha256": "7cd4039e9e1a3c42afe09fcf82971077b404036ee469d552e797c7739d99e875",
+          "bytes": 2964
+        },
+        {
+          "path": "scripts/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "scripts/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "scripts/managed_block.py",
+          "sha256": "addc9a88d7185b50c441d390218c816ed9cd937fe5b4b1e74109fbf74e75e6df",
+          "bytes": 10416
+        },
+        {
+          "path": "scripts/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        },
+        {
+          "path": "templates/events/claim.yml",
+          "sha256": "569c7f5608309d7968d86982bfa5f159f7c4c127ad4df10054a0a250135029b0",
+          "bytes": 437
+        },
+        {
+          "path": "templates/events/handoff.yml",
+          "sha256": "ebb367d08206cd7e50fba881a009087a6cd90a7f6ef987696bff0c41802c5ade",
+          "bytes": 692
+        },
+        {
+          "path": "templates/events/reassign.yml",
+          "sha256": "7046d7366d17ac964a0c0c1190442b3bbe3bae8c2acf9f7c7f89ef3aef3f0696",
+          "bytes": 1270
+        },
+        {
+          "path": "templates/events/release.yml",
+          "sha256": "48256ca4c269547537200e35ff1df0396924cb91e3cc4f356005b2bdf5bd070d",
+          "bytes": 709
+        },
+        {
+          "path": "templates/events/research-claim.yml",
+          "sha256": "3c74f6cc604a2dcff7e6d894d8f41e18ab93448534f0773af5a36585002ab267",
+          "bytes": 394
+        },
+        {
+          "path": "templates/events/resume.yml",
+          "sha256": "f0f78ed9b5d496c56af6b35529198554ddc71068e6a08696b5d1c24221a15da4",
+          "bytes": 743
+        }
+      ]
+    },
+    {
+      "path": ".claude/skills/github-collaboration",
+      "name": "github-collaboration",
+      "version": "0.2.0",
+      "file_count": 32,
+      "package_sha256": "29a7e3e519dd51cd863e7de1e9e3eba6a9d58eb139e2223b31b4184b1ae6ba41",
+      "manifest_sha256": "020e638eca07fd39d9839580743ff9614807a7aa5ed009a0eea9ff878ddd385a",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "020e638eca07fd39d9839580743ff9614807a7aa5ed009a0eea9ff878ddd385a",
+          "bytes": 6125
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "00b443fcafc4145f7ae6f76d7d277cdf9418a38932eec2a23b06904857f4e714",
+          "bytes": 1934
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "ddf5b96d26b6054aa5037139ceb475463c1ff9ab3e0d8ee487f88ac2d9ab9b31",
+          "bytes": 204
+        },
+        {
+          "path": "references/claims-and-handoffs.md",
+          "sha256": "1c40cdd399f294bac41e2e903bc28f2338b5291f242f2e27a0a1b052440559fb",
+          "bytes": 4118
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/event-helpers.md",
+          "sha256": "626fab387ba64bf9490c0debc528e4761a4e3813e90e502e56d16be2deb1b9ba",
+          "bytes": 4166
+        },
+        {
+          "path": "references/failure-recovery.md",
+          "sha256": "cb2b9400347eeb47e132b3db062ad6b227c82a2313f75088a34ce76e28b93852",
+          "bytes": 1492
+        },
+        {
+          "path": "references/git-and-pull-requests.md",
+          "sha256": "55c7ec3baf9d288adda95a35d91e0d84aadff9378ef8b3140c3144ae1c582fa5",
+          "bytes": 5434
+        },
+        {
+          "path": "references/identity-and-permissions.md",
+          "sha256": "c00680ffe3ff42d992d075ca2aabd5c313b3bde15e2b4f0ede6547f2a9b1b543",
+          "bytes": 709
+        },
+        {
+          "path": "references/issues-and-results.md",
+          "sha256": "f460a1319d6627d07118ffa226ce64c4ac8604a42d173c484cfffc805271db64",
+          "bytes": 1731
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/preflight.md",
+          "sha256": "8dba603bfc45ee21e2b786b3bb502db504f6c1c86771b1ddb8770f47e9ed0caa",
+          "bytes": 1130
+        },
+        {
+          "path": "references/review-and-merge.md",
+          "sha256": "f8b8411e83a9f0e11b402d5cc35337f009248e0a0a23d0fb000b2c5609f332e5",
+          "bytes": 3365
+        },
+        {
+          "path": "references/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "references/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "references/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "references/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "references/scope-and-checkpoints.md",
+          "sha256": "022a3b259de377cce628b7a113dda534181f7fc19f93893b1b05ef2c4501cb68",
+          "bytes": 2892
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "scripts/collaboration_event.py",
+          "sha256": "42146e26323fb7496c5b4a2f8524d43698a77a054c2cebd1b1293f6de960d76a",
+          "bytes": 29592
+        },
+        {
+          "path": "scripts/collaboration_scope.py",
+          "sha256": "f5be87b58d4047c8548fceef5d493f48dbe05b92325002fa1a0d71b933f83b6f",
+          "bytes": 9793
+        },
+        {
+          "path": "scripts/requirements-helpers.txt",
+          "sha256": "75c021092d5a3d06b596b01fa9bae1cbf934f4da46c9895d912108ec319c3c76",
+          "bytes": 124
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        },
+        {
+          "path": "templates/events/claim.yml",
+          "sha256": "569c7f5608309d7968d86982bfa5f159f7c4c127ad4df10054a0a250135029b0",
+          "bytes": 437
+        },
+        {
+          "path": "templates/events/handoff.yml",
+          "sha256": "ebb367d08206cd7e50fba881a009087a6cd90a7f6ef987696bff0c41802c5ade",
+          "bytes": 692
+        },
+        {
+          "path": "templates/events/reassign.yml",
+          "sha256": "7046d7366d17ac964a0c0c1190442b3bbe3bae8c2acf9f7c7f89ef3aef3f0696",
+          "bytes": 1270
+        },
+        {
+          "path": "templates/events/release.yml",
+          "sha256": "48256ca4c269547537200e35ff1df0396924cb91e3cc4f356005b2bdf5bd070d",
+          "bytes": 709
+        },
+        {
+          "path": "templates/events/research-claim.yml",
+          "sha256": "3c74f6cc604a2dcff7e6d894d8f41e18ab93448534f0773af5a36585002ab267",
+          "bytes": 394
+        },
+        {
+          "path": "templates/events/resume.yml",
+          "sha256": "f0f78ed9b5d496c56af6b35529198554ddc71068e6a08696b5d1c24221a15da4",
+          "bytes": 743
+        },
+        {
+          "path": "templates/pull-request-body.md",
+          "sha256": "0b9931f5869ed4c413c5d3d6bab49bd25901c6a8a591d1d13e5069c4172fe12b",
+          "bytes": 2150
+        },
+        {
+          "path": "templates/review-record.yml",
+          "sha256": "163c8b18f41111c2d5b766df9170795599b9a371c4ec8219e40530773d8756b2",
+          "bytes": 829
+        }
+      ]
+    },
+    {
+      "path": ".claude/skills/github-collaboration-check",
+      "name": "github-collaboration-check",
+      "version": "0.2.0",
+      "file_count": 13,
+      "package_sha256": "85c210485a8587dcd8978563c92712ac7753fe2f3489dc7be7de560b47e2b6a7",
+      "manifest_sha256": "835c4d05d2a205b4be9986e6752aa468b498a4c870897c1b50bbb6ad39521dcd",
+      "files": [
+        {
+          "path": "RESOURCE_MANIFEST.json",
+          "sha256": "835c4d05d2a205b4be9986e6752aa468b498a4c870897c1b50bbb6ad39521dcd",
+          "bytes": 2937
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "1e2c72690641eda355c1f4f4ce63903b1ce8e6f771f6be6fa8c4635e37d51b9d",
+          "bytes": 1618
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "cbebf28ef682bb7a1e0c5c95d378dc9033ce983f023569fecd281d803c4769e1",
+          "bytes": 327
+        },
+        {
+          "path": "references/checking.md",
+          "sha256": "86792c3247277a3ec5b0eba07c0fc8397510b9d3b24fcbdf3fe300fbbe2ed36d",
+          "bytes": 2360
+        },
+        {
+          "path": "references/elevated-authority.md",
+          "sha256": "1062a7f7559ac5c687704f0f138f6892093a719822e313e3b942b555a2b6bb7f",
+          "bytes": 2582
+        },
+        {
+          "path": "references/package-verification.md",
+          "sha256": "d5cdef79325166d59466edb9df99dd079127f2483288ecc1c34a3d927cef94ec",
+          "bytes": 3171
+        },
+        {
+          "path": "references/schemas/authorization.schema.json",
+          "sha256": "1e787cbbc3a5122d171765c89adb44851783e04e3727b4aab9ae61858ca31bcb",
+          "bytes": 4015
+        },
+        {
+          "path": "references/schemas/collaboration-event.schema.json",
+          "sha256": "fcd26792fa2bfb8e9ac1bfcdc24f48c0e9d3d67f6878b3ded90450de8535e347",
+          "bytes": 6819
+        },
+        {
+          "path": "references/schemas/config.schema.json",
+          "sha256": "d8c2f51b475163bcfaf7e4ccd48941bc10a8a814bbcf34685996b8e28661730e",
+          "bytes": 2930
+        },
+        {
+          "path": "references/schemas/managed-resources.schema.json",
+          "sha256": "c271b563aaecc7d0c62ee6f948d78f295decbcefce4d9cf7d46b3642940c7946",
+          "bytes": 1324
+        },
+        {
+          "path": "references/session-core.md",
+          "sha256": "47d557692237e34b9755290ff2f752e74b616632c7243917ef2377856f0a7dc9",
+          "bytes": 4674
+        },
+        {
+          "path": "scripts/run_pr_metadata_check.py",
+          "sha256": "8bfbb99767012a848b048f45471cdab46144e6b14900d633db3746db4f5ee4d3",
+          "bytes": 12842
+        },
+        {
+          "path": "scripts/verify_installed_skill.py",
+          "sha256": "25e94f52dbfe62626d8df54bb473c418d7b4737890533646b7ae768f208ca1b1",
+          "bytes": 6790
+        }
+      ]
+    }
+  ],
+  "native_discovery": {
+    "codex": "explicit project .agents v0.2.0 path read verified in this session; user-level same-name v0.1.0 found; automatic selection unverified",
+    "claude": "native Skill tool selected project .claude v0.2.0 in this session",
+    "remaining": "final merged checkout, nested/space paths, Pi and Windows/WSL remain unverified"
+  }
+}

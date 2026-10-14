@@ -1,0 +1,104 @@
+# Optional local candidate: enabling or requiring it needs separate authorization.
+# Probe current repository event policy, runner/budget and a successful trusted
+# run before proposing a Required Check; never auto-relax the event policy.
+# Only collaboration metadata is checked. Human approval, live permissions,
+# native review/protection and real Skill loading remain outside this check.
+# Reviews/comments can change after a run; merge-time rechecking is separate.
+# This adapter supports final PRs targeting the default branch only.
+name: Agent collaboration metadata
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+jobs:
+  agent-collaboration:
+    name: agent-collaboration
+    if: github.event.pull_request.base.ref == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Prepare explicit trusted helper dependencies and run metadata chain
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64
+          import hashlib
+          import json
+          import os
+          import re
+          import subprocess
+          import sys
+          import tempfile
+          from pathlib import Path
+          from urllib.parse import quote
+
+          def unknown():
+              print(json.dumps({"result": "unknown", "errors": ["trusted Actions launcher unavailable or stale; refresh deployment/event"], "snapshot": None}))
+              raise SystemExit(2)
+
+          def get(endpoint):
+              result = subprocess.run(["gh", "api", "--method", "GET", "--hostname", "github.com", endpoint],
+                                      capture_output=True, text=True, check=False, timeout=30)
+              if result.returncode:
+                  unknown()
+              return json.loads(result.stdout)
+
+          try:
+              repository = os.environ["GITHUB_REPOSITORY"]
+              sha = os.environ["GITHUB_SHA"]
+              event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
+              if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository) or not re.fullmatch(r"[0-9a-f]{40}", sha):
+                  unknown()
+              repo = get(f"repos/{repository}")
+              if repo.get("full_name") != repository or repo.get("id") != event.get("repository", {}).get("id") or event.get("repository", {}).get("full_name") != repository:
+                  unknown()
+              default = repo["default_branch"]
+              ref = get(f"repos/{repository}/git/ref/heads/{quote(default, safe='')}")
+              if ref.get("object", {}).get("sha") != sha:
+                  unknown()
+              pull = event["pull_request"]
+              if type(pull.get("number")) is not int or pull["number"] < 1 or not re.fullmatch(r"[0-9a-f]{40}", str(pull.get("head", {}).get("sha", ""))):
+                  unknown()
+              tree = get(f"repos/{repository}/git/trees/{sha}?recursive=1")
+              if tree.get("truncated") is not False or not isinstance(tree.get("tree"), list):
+                  unknown()
+              sources = {}
+              for name in ("run_pr_metadata_check.py", "requirements-helpers.txt"):
+                  path = ".github/agent-collaboration/" + name
+                  entries = [entry for entry in tree["tree"] if isinstance(entry, dict) and entry.get("path") == path]
+                  if len(entries) != 1 or entries[0].get("type") != "blob" or entries[0].get("mode") not in {"100644", "100755"}:
+                      unknown()
+                  item = get(f"repos/{repository}/contents/{path}?ref={sha}")
+                  if item.get("type") != "file" or item.get("path") != path or item.get("encoding") != "base64":
+                      unknown()
+                  raw = base64.b64decode("".join(item["content"].split()), validate=True)
+                  blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+                  if len(raw) > 262144 or item.get("sha") != blob or entries[0].get("sha") != blob or item.get("size") != len(raw):
+                      unknown()
+                  sources[name] = raw
+              with tempfile.TemporaryDirectory(prefix="agent-metadata-bootstrap-") as directory:
+                  root = Path(directory)
+                  for name, raw in sources.items():
+                      (root / name).write_bytes(raw)
+                  if get(f"repos/{repository}/git/ref/heads/{quote(default, safe='')}").get("object", {}).get("sha") != sha:
+                      unknown()
+                  # Explicit Actions preparation only. The local launcher never installs dependencies.
+                  if subprocess.run([sys.executable, "-m", "venv", str(root / "runtime")], check=False).returncode:
+                      unknown()
+                  python = root / "runtime/bin/python"
+                  if subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
+                                     "--requirement", str(root / "requirements-helpers.txt")], check=False).returncode:
+                      unknown()
+                  result = subprocess.run([str(python), str(root / "run_pr_metadata_check.py"), "--repository", repository,
+                                           "--repository-id", str(repo["id"]), "--pull-number", str(pull["number"]),
+                                           "--expected-trusted-sha", sha, "--expected-head", pull["head"]["sha"],
+                                           "--default-target-only"], check=False)
+                  raise SystemExit(result.returncode)
+          except (OSError, KeyError, TypeError, ValueError, AttributeError, subprocess.TimeoutExpired):
+              unknown()
+          PY

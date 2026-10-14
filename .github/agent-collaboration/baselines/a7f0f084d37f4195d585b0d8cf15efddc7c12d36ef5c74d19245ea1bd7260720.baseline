@@ -1,0 +1,6 @@
+# 身份绑定，不授予角色、权限上限或任务认领。
+schema_version: 1
+actors:
+  - actor_id: static-pages-bootstrap
+    controlled_by: Paipai112
+    controlled_by_id: 107734806
