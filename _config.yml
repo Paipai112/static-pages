@@ -1,0 +1,26 @@
+# Preserve legacy main/root Pages publishing while excluding development files.
+# In Jekyll 3 an explicit exclude replaces defaults, so retain the defaults too.
+exclude:
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle
+  - vendor/cache
+  - vendor/gems
+  - vendor/ruby
+  - .agents
+  - .claude
+  - .github
+  - docs
+  - sites
+  - scripts
+  - tests
+  - AGENTS.md
+  - CLAUDE.md
+  - CONTRIBUTING.md
+  - README.md
+  - NOTICE-WORK-WITH-AGENT.md
+  - site-catalog.json

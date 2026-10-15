@@ -1,0 +1,10 @@
+# 首次配置的仓库身份。未建立持久 Leader 委任。
+schema_version: 1
+repository:
+  hostname: github.com
+  repository_id: 1351406548
+  owner: Paipai112
+  name: static-pages
+  default_branch: main
+  default_branch_source_sha: 0533d1ea1e71fe28553ed84a054b5b9e9d76531c
+leader_delegations: []
