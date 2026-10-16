@@ -87,7 +87,7 @@ export function DemoApp() {
     setMessage('Demo 资料已下载');
   };
 
-  return <div className="dmo-app">
+  return <div className={`dmo-app${page === 'roadmap' ? ' dmo-app--roadmap' : ''}`}>
     <a className="dmo-skip" href="#dmo-content" onClick={event => { event.preventDefault(); document.getElementById('dmo-content')?.focus(); }}>跳转到报告内容</a>
     <header className="dmo-header"><a className="dmo-brand" href="#roadmap" onClick={event => { event.preventDefault(); navigate('roadmap'); }}><ReportIcon /><strong>雷达尾灯</strong><span className="dmo-badge">DEMO</span></a>
       <nav className="dmo-nav" aria-label="报告菜单">
@@ -95,10 +95,10 @@ export function DemoApp() {
         <a href={`#analysis/${analysis.view}`} aria-current={page === 'analysis' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('analysis'); }}>竞品分析</a>
       </nav><button className="dmo-button dmo-config-button" onClick={openConfiguration}><span aria-hidden="true">☷</span> 视图配置</button>
     </header>
-    <main id="dmo-content" className="dmo-content" tabIndex={-1}>
+    <main id="dmo-content" className={`dmo-content${page === 'roadmap' ? ' dmo-content--roadmap' : ''}`} tabIndex={-1}>
       <div className="dmo-page-heading"><h1>{page === 'roadmap' ? 'Roadmap' : '竞品分析'}</h1><div className="dmo-toolbar"><button className="dmo-button" onClick={() => setDialog('scope')}>☷ 范围详情</button><button className="dmo-button dmo-button--dark" onClick={downloadMaterials}>↓ 下载资料</button></div></div>
       <div className="dmo-meta"><span>▦ {page === 'analysis' ? `${analysis.startMonth.replace('-', '.')} — ${analysis.endMonth.replace('-', '.')}` : '快照 2026.08.31'}</span><span>◇ {catalog.length} 款产品</span><span>▤ {catalogBrands.length} 个品牌</span><span>↻ {page === 'analysis' ? '设计稿演示数据' : '资料更新 2026.08.31'}</span></div>
-      <div hidden={page !== 'roadmap'}><DemoRoadmap state={roadmap} active={page === 'roadmap'} onChange={next => setConfiguration(current => ({ ...current, roadmap: next }))} /></div>
+      <div className="dmo-roadmap-page" hidden={page !== 'roadmap'}><DemoRoadmap state={roadmap} active={page === 'roadmap'} onChange={next => setConfiguration(current => ({ ...current, roadmap: next }))} /></div>
       {page === 'analysis' && <AnalysisPage state={analysis} onChange={next => setConfiguration(current => ({ ...current, analysis: next }))} onViewChange={view => navigate('analysis', view)} />}
     </main>
     {message && <div className="dmo-toast" role="status"><span>{message}</span><button aria-label="关闭提示" onClick={() => setMessage('')}>×</button></div>}

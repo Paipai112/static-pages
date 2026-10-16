@@ -119,7 +119,7 @@ export function DemoRoadmap({ state, onChange, active }: { state: RoadmapState; 
     {editingFocus && <div className="dmo-inline-status" role="status">点击产品卡片切换关注状态。<button className="dmo-link" onClick={() => onChange({ ...state, onlyFocused: false, brands: catalogBrands })}>显示全部产品</button></div>}
     <div id="dmo-map-stage" ref={mapStage} className={`dmo-map-stage${expanded ? ' dmo-map-stage--expanded' : ''}`} role={expanded ? 'dialog' : undefined} aria-modal={expanded || undefined} aria-label={expanded ? '整页产品定位地图' : undefined}>
     {expanded && <button ref={exitButton} className="dmo-map-exit dmo-button" onClick={() => setExpanded(false)} aria-label="退出整页地图">收起地图 <kbd>Esc</kbd></button>}
-    {filtered.length ? <Roadmap key={resetZoom} active={active} categoryConfig={config} products={filtered} layout={layout} focusedAsins={focused} focusSelectionMode={editingFocus}
+    {filtered.length ? <Roadmap key={resetZoom} active={active} fillViewport categoryConfig={config} products={filtered} layout={layout} focusedAsins={focused} focusSelectionMode={editingFocus}
       onProductAction={product => editingFocus ? toggleFocus(product) : setSelected(product)} priceTiers={config.priceTiers ?? []} tierRanks={ranks} />
       : <div className="dmo-empty"><strong>{invalidPrice ? '请调整价格范围' : '没有符合条件的产品'}</strong><p>调整品牌、价格或关注条件后继续查看。</p><button className="dmo-button" onClick={() => onChange({ ...state, brands: catalogBrands, minPrice: '', maxPrice: '', onlyFocused: false })}>显示全部产品</button></div>}
     </div>
