@@ -2,11 +2,11 @@
 
 ## 一、当前交付
 
-本目录保存独立表单的可编辑 HTML、公开站点目录和交付记录。本说明随发布候选入库；实际上线状态见 [发布任务 #3](https://github.com/Paipai112/static-pages/issues/3)。
+本目录保存独立表单的可编辑 HTML、公开站点目录和交付记录。本次更新价位段的起止价格输入；实际上线状态见 [发布任务 #7](https://github.com/Paipai112/static-pages/issues/7)。
 
 - 发布目录：仓库根 `market-research-intake/`。
 - 入口：`index.html`。
-- 输入：Amazon 站点、产品品类、检索要求。
+- 输入：Amazon 站点、产品品类、检索要求，以及可选的价位段币种、起始价格和终止价格。
 - 输出：浏览器保存的要求，以及可复制或下载的完整 JSON 交接内容。
 - [需求及批准记录](docs/prd.md)、[设计依据](docs/design/README.md)、[验收记录](docs/acceptance.md)。
 
@@ -18,10 +18,11 @@
 python3 -m http.server 8766 --bind 127.0.0.1
 ```
 
-发布时仅复制以下两个文件到仓库根 `market-research-intake/`：
+发布时仅复制以下三个文件到仓库根 `market-research-intake/`：
 
 - `index.html`
 - `amazon-marketplaces.js`
+- `price-bands.js`
 
 源文件中的资源使用相对路径。交付记录与 `docs/design/` 归档不进入公开页面目录。
 
@@ -32,3 +33,6 @@ python3 -m http.server 8766 --bind 127.0.0.1
 - 保存操作本身不会自动启动调研。
 - 23 个 Amazon 站点的目录来源保留在页面渐进披露区；站点目录不等同于采集工具已支持全部站点。
 - 旧浏览器草稿中的检索词和显式要求会合并进入“检索要求”供用户继续编辑。
+
+- 价位段可添加、删除，不填写名称。每段使用明确的起始与终止价格；复制文本和 JSON 同时携带数值区间。
+- 旧的起始价格草稿仍可恢复，缺少终止价格的行会提示补填后再确认。
