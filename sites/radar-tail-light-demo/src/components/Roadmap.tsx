@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -21,6 +22,7 @@ import type { Product } from "../lib/products";
 
 interface RoadmapProps {
   active?: boolean;
+  fillViewport?: boolean;
   categoryConfig: Pick<CategoryConfigContract, "currencySymbol" | "keyMetric" | "cardMetrics"> & Partial<Pick<CategoryConfigContract, "dataNote">>;
   products: Product[];
   layout: RoadmapLayout;
@@ -64,15 +66,44 @@ const formatInteger = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 
 
 export function Roadmap({
   active = true,
+  fillViewport = false,
   categoryConfig,
   products,
-  layout,
+  layout: sourceLayout,
   focusedAsins,
   focusSelectionMode,
   onProductAction,
   priceTiers,
   tierRanks,
 }: RoadmapProps) {
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [frameHeight, setFrameHeight] = useState(0);
+  useIsomorphicLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!fillViewport || !active || !frame) return;
+    const measure = () => {
+      if (frame.clientHeight > 0) setFrameHeight(frame.clientHeight);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, [fillViewport, active]);
+  const layout = useMemo(() => {
+    if (!fillViewport) return sourceLayout;
+    // Fit at 100% zoom. Zooming must not reflow coordinates or move its anchor.
+    const height = Math.max(sourceLayout.height,
+      frameHeight - HEADER_HEIGHT - PLOT_TOP_PAD - ROADMAP_CARD_HEIGHT - CANVAS_BOTTOM_PADDING);
+    if (height === sourceLayout.height) return sourceLayout;
+    const factor = sourceLayout.height > 0 ? height / sourceLayout.height : 1;
+    return {
+      ...sourceLayout, height,
+      cards: sourceLayout.cards.map(card => ({ ...card, y: card.y * factor })),
+      priceScale: { ...sourceLayout.priceScale, height,
+        segments: sourceLayout.priceScale.segments.map(segment => ({ ...segment,
+          top: segment.top * factor, bottom: segment.bottom * factor })) },
+    };
+  }, [sourceLayout, fillViewport, frameHeight]);
   const [hovered,setHovered]=useState<(PointSummary & {id:string})|null>(null);
   useEffect(() => { if (!active) setHovered(null); }, [active]);
   // Preserve the supplied sales window without printing the complete data policy on cards.
@@ -229,7 +260,7 @@ export function Roadmap({
 
   return (
     <div className="roadmap-scroll" role="region" aria-label="品牌与价格产品路标">
-      <div className="roadmap-frame">
+      <div className="roadmap-frame" ref={frameRef}>
         <div aria-hidden="true" className="roadmap-corner" />
         <div
           aria-hidden="true"
