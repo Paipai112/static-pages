@@ -24,6 +24,8 @@
 | 全球雷达尾灯 · 品牌价格路标 | `radar-tail-light-roadmap/` | 尚未迁入 |
 | 德国站自行车雷达尾灯 | `de-bike-radar-taillight/` | 尚未迁入 |
 | ESP-Claw / Ditto 与 StackChan 调研报告 | `robot-projects/` | 尚未迁入 |
+| 市场调研要求表单 | `market-research-intake/` | [源码与交付说明](sites/market-research-intake/) |
+| 雷达尾灯 · Roadmap 与竞品分析 Demo | `radar-tail-light-demo/` | [源码与交付说明](sites/radar-tail-light-demo/) |
 
 现有六站保留原地址。`source_path: null` 表示本仓库尚未收录可确认对应线上版本的开发源码；维护时通过独立任务迁入，不把发布产物当成已验收的源码工程。
 

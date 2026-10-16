@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>雷达尾灯 · Roadmap</title>
+  <style>
+    :root { color-scheme:light; --ink:#172a25; --muted:#61746a; --green:#237c61; --line:#dce5df; --paper:#fff; --bg:#f5f7f5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif; font-size:14px; line-height:1.6; }
+    a { color:var(--green); text-underline-offset:4px; }
+    a:focus-visible, [tabindex]:focus-visible { outline:3px solid #337dff; outline-offset:4px; }
+    .skip { position:fixed; top:8px; left:16px; z-index:10; padding:10px 18px; background:var(--ink); color:white; transform:translateY(-160%); }
+    .skip:focus { transform:none; }
+    .site-header { position:sticky; top:0; z-index:5; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); }
+    .header-inner { max-width:1440px; margin:auto; padding:0 32px; min-height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:650; white-space:nowrap; }
+    .brand svg { width:24px; height:24px; color:var(--green); }
+    .primary-nav { display:flex; gap:8px; align-self:stretch; }
+    .primary-nav a { display:flex; align-items:center; min-height:44px; padding:0 20px; border-bottom:3px solid transparent; color:var(--muted); text-decoration:none; font-weight:600; }
+    .primary-nav a:hover { background:#f2f7f3; }
+    .primary-nav a[aria-current="page"] { color:var(--green); border-bottom-color:var(--green); }
+    main { max-width:1440px; margin:0 auto; }
+    .state-bar { padding:18px 32px 0; }
+    .state-nav { display:inline-flex; flex-wrap:wrap; padding:4px; gap:4px; border:1px solid var(--line); border-radius:9px; background:#edf2ee; }
+    .state-nav a { min-height:40px; display:flex; align-items:center; justify-content:center; padding:6px 18px; text-decoration:none; color:var(--muted); border-radius:6px; }
+    .state-nav a:hover { color:var(--ink); background:#e4ede7; }
+    .state-nav a[aria-current="page"] { color:var(--green); background:white; font-weight:600; box-shadow:0 1px 3px #172a250c; }
+    .screen { padding-bottom:24px; }
+    .image-scroll { overflow:auto; overscroll-behavior-x:contain; background:var(--bg); scrollbar-gutter:stable; }
+    .canvas { width:100%; overflow:hidden; }
+    .canvas img { display:block; width:100%; height:auto; margin-top:-4.4444444444%; }
+    .image-error { margin:24px 32px; padding:20px; border:1px solid var(--line); border-radius:8px; background:white; }
+    .image-error p { margin:0 0 8px; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    [hidden] { display:none !important; }
+    @media (max-width:900px) {
+      .header-inner { padding:0 20px; }
+      .state-bar { padding:16px 20px 0; }
+      .canvas { width:1440px; }
+    }
+    @media (max-width:560px) {
+      .header-inner { flex-wrap:wrap; gap:0; padding-top:10px; }
+      .brand { width:100%; padding:4px 0 6px; }
+      .primary-nav { width:100%; }
+      .primary-nav a { flex:1; justify-content:center; padding:8px 12px; }
+      .state-nav { display:flex; }
+      .state-nav a { flex:1; padding:6px 10px; font-size:13px; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#preview-content">跳到主要内容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 17v4m5-9v9m5-6v6m5-12v12M2 12l6-6 5 3 8-8"/></svg>
+        <span>雷达尾灯</span>
+      </div>
+      <nav class="primary-nav" aria-label="报告页面">
+        <a href="#roadmap" data-main="roadmap" aria-current="page">Roadmap</a>
+        <a href="#analysis/products" data-main="analysis">竞品分析</a>
+      </nav>
+    </div>
+  </header>
+  <main id="preview-content" tabindex="-1">
+    <div class="state-bar" id="analysis-states" hidden>
+      <nav class="state-nav" aria-label="分析对象">
+        <a href="#analysis/products" data-state="products">产品</a>
+        <a href="#analysis/brands" data-state="brands">厂商</a>
+        <a href="#analysis/market" data-state="market">大盘</a>
+      </nav>
+    </div>
+    <p class="sr-only" id="page-status" role="status" aria-live="polite"></p>
+    <section class="screen" data-screen="roadmap" aria-labelledby="roadmap-title">
+      <h1 class="sr-only" id="roadmap-title">Roadmap · 产品定位</h1>
+      <div class="image-scroll" tabindex="0" role="region" aria-label="Roadmap，可横向滚动">
+        <div class="canvas"><img src="exports/01-roadmap.png?rev=20261013-r2" width="1440" alt="Roadmap：同一研究范围内的品牌价格地图，包含品牌、价格、关注筛选以及缩放控件。"></div>
+      </div>
+    </section>
+    <section class="screen" data-screen="analysis/products" aria-labelledby="products-title" hidden>
+      <h1 class="sr-only" id="products-title">竞品分析 · 产品趋势</h1>
+      <div class="image-scroll" tabindex="0" role="region" aria-label="产品趋势，可横向滚动">
+        <div class="canvas"><img src="exports/02-analysis-products.png?rev=20261013-r2" width="1440" loading="lazy" alt="竞品分析的产品状态：期间销量与销额范围、候选产品、批量选择、月度折线及数据点摘要。"></div>
+      </div>
+    </section>
+    <section class="screen" data-screen="analysis/brands" aria-labelledby="brands-title" hidden>
+      <h1 class="sr-only" id="brands-title">竞品分析 · 厂商趋势</h1>
+      <div class="image-scroll" tabindex="0" role="region" aria-label="厂商趋势，可横向滚动">
+        <div class="canvas"><img src="exports/03-analysis-brands.png?rev=20261013-r2" width="1440" loading="lazy" alt="竞品分析的厂商状态：按品牌汇总全部收录产品，候选品牌显示产品数量和期间累计指标，右侧为月销额折线。"></div>
+      </div>
+    </section>
+    <section class="screen" data-screen="analysis/market" aria-labelledby="market-title" hidden>
+      <h1 class="sr-only" id="market-title">竞品分析 · 本次调研总盘</h1>
+      <div class="image-scroll" tabindex="0" role="region" aria-label="本次调研总盘，可横向滚动">
+        <div class="canvas"><img src="exports/04-analysis-market.png?rev=20261013-r2" width="1440" loading="lazy" alt="竞品分析的总盘状态：全部收录产品的期间销量、销额、最近完整月指标和总销量趋势。"></div>
+      </div>
+    </section>
+    <noscript><p class="image-error">请启用 JavaScript 以切换页面。</p></noscript>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const labels = {
+        roadmap: 'Roadmap · 产品定位',
+        'analysis/products': '竞品分析 · 产品趋势',
+        'analysis/brands': '竞品分析 · 厂商趋势',
+        'analysis/market': '竞品分析 · 本次调研总盘'
+      };
+      const screens = [...document.querySelectorAll('[data-screen]')];
+      const mainLinks = [...document.querySelectorAll('[data-main]')];
+      const stateLinks = [...document.querySelectorAll('[data-state]')];
+      const positions = new Map();
+      let active = null;
+      let lastAnalysis = 'analysis/products';
+      let renderNumber = 0;
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+      function routeFromHash() {
+        let hash = location.hash.slice(1);
+        if (hash === 'analysis') hash = lastAnalysis;
+        return Object.hasOwn(labels, hash) ? hash : 'roadmap';
+      }
+      function markCurrent(element, current) {
+        if (current) element.setAttribute('aria-current', 'page');
+        else element.removeAttribute('aria-current');
+      }
+      function savePosition() {
+        if (!active) return;
+        const panel = screens.find(item => item.dataset.screen === active);
+        positions.set(active, { y: window.scrollY, x: panel.querySelector('.image-scroll').scrollLeft });
+      }
+      function render() {
+        if (location.hash === '#preview-content') return;
+        const next = routeFromHash();
+        if (next === active) return;
+        savePosition();
+        active = next;
+        const ticket = ++renderNumber;
+        const isAnalysis = next.startsWith('analysis/');
+        if (isAnalysis) lastAnalysis = next;
+        const panel = screens.find(item => item.dataset.screen === next);
+        screens.forEach(item => { item.hidden = item !== panel; });
+        document.getElementById('analysis-states').hidden = !isAnalysis;
+        mainLinks.forEach(link => {
+          markCurrent(link, link.dataset.main === (isAnalysis ? 'analysis' : 'roadmap'));
+          if (link.dataset.main === 'analysis') link.href = '#' + lastAnalysis;
+        });
+        stateLinks.forEach(link => markCurrent(link, next === 'analysis/' + link.dataset.state));
+        document.getElementById('page-status').textContent = '当前页面：' + labels[next];
+        document.title = labels[next] + ' · 雷达尾灯';
+        const restore = () => {
+          if (ticket !== renderNumber) return;
+          const position = positions.get(next) || { y: 0, x: 0 };
+          panel.querySelector('.image-scroll').scrollLeft = position.x;
+          window.scrollTo({ top: position.y, behavior: 'auto' });
+        };
+        requestAnimationFrame(restore);
+        const artwork = panel.querySelector('img');
+        if (artwork && !artwork.complete) artwork.addEventListener('load', restore, { once: true });
+      }
+      document.querySelectorAll('.canvas img').forEach(img => {
+        img.addEventListener('error', () => {
+          const canvas = img.closest('.image-scroll');
+          const message = document.createElement('div');
+          message.className = 'image-error';
+          message.setAttribute('role', 'status');
+          const text = document.createElement('p');
+          text.textContent = '图片暂时无法加载。';
+          const link = document.createElement('a');
+          link.href = img.getAttribute('src');
+          link.textContent = '打开原始图片';
+          message.append(text, link);
+          canvas.replaceChildren(message);
+        }, { once: true });
+      });
+      window.addEventListener('hashchange', render);
+      window.addEventListener('pagehide', savePosition);
+      if (!location.hash) history.replaceState(null, '', '#roadmap');
+      render();
+    })();
+  </script>
+</body>
+</html>

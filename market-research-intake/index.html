@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>定义市场调研要求</title>
+  <style>
+    :root {
+      --ink: #172a25;
+      --muted: #64786f;
+      --green: #237c61;
+      --green-hover: #17624b;
+      --pale: #edf6f0;
+      --canvas: #f5f7f5;
+      --line: #dce5df;
+      --white: #fff;
+      --error: #a23232;
+      --radius: 10px;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      color: var(--ink);
+      font-synthesis: none;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); }
+    button, input, textarea { font: inherit; }
+    button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    button, a, input, textarea, summary, [tabindex] { outline-offset: 4px; }
+    :focus-visible { outline: 3px solid #5d9dce; }
+    [hidden] { display: none !important; }
+    a { color: var(--green); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(28px, 3vw, 36px); line-height: 1.35; letter-spacing: -.04em; }
+    h2 { font-size: 19px; line-height: 1.4; }
+    h3 { font-size: 15px; }
+    button svg { width: 18px; height: 18px; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--line); }
+    .topbar-inner { max-width: 1200px; padding: 15px 32px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 650; }
+    .brand svg { flex: 0 0 25px; width: 25px; height: 25px; color: var(--green); }
+    .text-button { border: 0; padding: 8px 12px; min-height: 42px; background: transparent; color: var(--green); font-weight: 600; border-radius: 6px; }
+    .text-button:hover { background: var(--pale); }
+    main { width: min(1040px, calc(100% - 64px)); margin: 42px auto 64px; }
+    .eyebrow { color: var(--green); font-size: 11px; letter-spacing: .19em; font-weight: 700; margin-bottom: 11px; }
+    .intro { color: var(--muted); margin-top: 12px; max-width: 48em; }
+    .panel { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 27px; margin-top: 24px; }
+    .panel > h2 { margin-bottom: 23px; }
+    fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+    legend { padding: 0; font-weight: 600; }
+    .required { color: var(--green); font-size: 12px; font-weight: 400; margin-left: 7px; }
+    .field-label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .field { margin-top: 23px; min-width: 0; }
+    input[type="text"], textarea { display: block; width: 100%; padding: 11px 13px; color: var(--ink); background: #fff; border: 1px solid #cbd9d0; border-radius: 7px; line-height: 1.6; min-width: 0; }
+    input[type="text"] { min-height: 46px; }
+    textarea { resize: vertical; min-height: 112px; }
+    input::placeholder, textarea::placeholder { color: #7d8c84; opacity: 1; }
+    input:disabled { background: #f3f6f3; color: var(--muted); }
+    input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--error); }
+    input[type="checkbox"] { width: 18px; height: 18px; flex: 0 0 18px; accent-color: var(--green); margin: 0; }
+    .helper { color: var(--muted); font-size: 13px; margin-top: 7px; }
+    .market-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin: 10px 0 16px; }
+    .selection-count { color: var(--green); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .bulk-actions { display: flex; flex-wrap: wrap; gap: 3px; }
+    .bulk-actions .text-button { font-size: 13px; padding: 6px 10px; min-height: 40px; }
+    .region + .region { margin-top: 18px; }
+    .region legend { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
+    .market-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .market { display: flex; align-items: center; gap: 9px; padding: 10px 11px; min-height: 54px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; min-width: 0; }
+    .market:hover { background: #f7faf7; border-color: #a0b9aa; }
+    .market:has(input:checked) { background: var(--pale); border-color: #84b29d; }
+    .market-name { font-size: 13px; font-weight: 600; line-height: 1.35; display: block; overflow-wrap: anywhere; }
+    .market-domain { color: var(--muted); font-size: 11px; display: block; overflow-wrap: anywhere; }
+    .market-meta { margin-top: 16px; font-size: 12px; color: var(--muted); }
+    .market-meta summary { cursor: pointer; width: fit-content; padding: 4px 0; }
+    .market-meta ul { margin: 7px 0 0; padding-left: 20px; }
+    .market-meta .helper { font-size: 12px; }
+    .divider { height: 1px; background: var(--line); margin: 24px 0 0; }
+    .form-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 26px; }
+    .form-actions p { color: var(--muted); font-size: 13px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; min-height: 46px; border: 1px solid var(--line); border-radius: 7px; background: var(--white); color: var(--ink); font-weight: 600; line-height: 1.45; }
+    .button:hover { background: #f1f6f2; border-color: #a3b9ab; }
+    .button.primary { background: var(--green); color: var(--white); border-color: var(--green); }
+    .button.primary:hover { background: var(--green-hover); }
+    .button.primary:disabled:hover { background: var(--green); }
+    .form-actions .button { flex: 0 0 auto; }
+    .status { min-height: 24px; font-size: 13px; color: var(--green); margin-top: 14px; }
+    .error { color: var(--error); font-size: 13px; margin-top: 7px; }
+    .error-box { padding: 15px 18px; border: 1px solid #debaba; border-radius: 8px; color: var(--error); background: #fff7f5; margin: 18px 0; font-size: 14px; }
+    .error-box ul { margin: 4px 0 0; padding-left: 20px; }
+    .error-box a { color: inherit; }
+    dialog { width: min(600px, calc(100% - 32px)); max-height: calc(100dvh - 40px); border: 1px solid var(--line); border-radius: 15px; color: var(--ink); background: var(--white); padding: 0; box-shadow: 0 24px 90px #13271d30; overflow: auto; }
+    dialog::backdrop { background: #10282061; }
+    .dialog-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 26px 26px 0; position: sticky; top: 0; background: var(--white); z-index: 1; }
+    .dialog-head h2 { font-size: 22px; margin-top: 5px; }
+    .dialog-close { display: inline-grid; place-items: center; width: 40px; height: 40px; flex: 0 0 40px; border: 0; border-radius: 6px; color: var(--muted); background: transparent; }
+    .dialog-close:hover { background: #eef4ef; }
+    .dialog-body { padding: 15px 26px 26px; }
+    .success-icon { width: 38px; height: 38px; color: var(--green); border-radius: 50%; background: var(--pale); padding: 9px; margin-bottom: 14px; }
+    .handoff-prompt { font-size: 17px; line-height: 1.8; }
+    .save-state { color: var(--muted); font-size: 13px; margin: 13px 0 19px; }
+    .save-state.failed { color: var(--error); }
+    .dialog-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .handoff-details { margin-top: 21px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .handoff-details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+    #handoff-text { font-family: inherit; font-size: 12px; margin-top: 12px; min-height: 230px; line-height: 1.7; background: #f7faf7; }
+    .select-text { margin-top: 8px; font-size: 13px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 780px) {
+      .market-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .topbar-inner { padding: 12px 17px; gap: 8px; }
+      .brand { font-size: 15px; gap: 8px; }
+      main { width: calc(100% - 32px); margin: 28px auto 40px; }
+      h1 { font-size: 28px; }
+      .panel { padding: 19px 16px; margin-top: 18px; }
+      .market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .market { padding: 10px 8px; }
+      .market-name { font-size: 12px; }
+      .market-domain { font-size: 11px; }
+      .form-actions { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 21px; }
+      .form-actions .button { width: 100%; }
+      .dialog-head { padding: 19px 18px 0; }
+      .dialog-body { padding: 12px 18px 21px; }
+      .dialog-actions { flex-direction: column; }
+      .dialog-actions .button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: no-preference) { button, .market { transition: background-color .15s, border-color .15s; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v3m5-8v8m5-12v12m5-7v7M3 11l5-5 5 3 8-8"/></svg>
+        <span>PM / 调研输入</span>
+      </div>
+      <button id="save-draft" class="text-button" type="button">保存草稿</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="eyebrow">RESEARCH INTAKE</div>
+    <h1>填写调研要求</h1>
+    <p class="intro">填写站点与检索要求，保存后交给 AI 执行调研。</p>
+    <p id="draft-status" class="status" role="status" hidden></p>
+    <div id="form-errors" class="error-box" role="alert" tabindex="-1" hidden></div>
+
+    <form id="research-form" novalidate>
+      <section class="panel" aria-labelledby="scope-heading">
+        <h2 id="scope-heading">调研范围</h2>
+        <fieldset id="marketplaces" aria-describedby="market-help market-error" tabindex="-1">
+          <legend>Amazon 站点<span class="required">至少选择 1 个</span></legend>
+          <p class="helper" id="market-help">可选择一个或多个站点。</p>
+          <div class="market-toolbar">
+            <span id="market-count" class="selection-count" aria-live="polite" aria-atomic="true">正在加载站点目录</span>
+            <div class="bulk-actions" aria-label="站点批量选择">
+              <button type="button" class="text-button" data-bulk="all" disabled>全选</button>
+              <button type="button" class="text-button" data-bulk="none" disabled>全取消</button>
+              <button type="button" class="text-button" data-bulk="invert" disabled>反选</button>
+            </div>
+          </div>
+          <div id="market-list"></div>
+          <p id="market-error" class="error" hidden></p>
+          <p id="catalog-error" class="error-box" role="alert" hidden></p>
+        </fieldset>
+        <details class="market-meta" id="market-sources">
+          <summary>站点目录来源</summary>
+          <p id="market-checked" class="helper"></p>
+          <ul id="market-source-list"></ul>
+        </details>
+        <div class="divider"></div>
+        <div class="field">
+          <label for="product-category" class="field-label">产品品类<span class="required">必填</span></label>
+          <input id="product-category" name="productCategory" type="text" required maxlength="300" placeholder="填写想要调研的产品品类" aria-describedby="category-error" autocomplete="off">
+          <p id="category-error" class="error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="research-requirements" class="field-label">检索要求</label>
+          <textarea id="research-requirements" name="researchRequirements" rows="4" maxlength="12000" placeholder="填写本次调研的全部要求，例如产品条件、检索词、需要排除的类型，以及你关心的问题。"></textarea>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <p>要求保存在当前浏览器。<br>保存后，复制给 AI 即可继续。</p>
+        <button id="confirm-save" class="button primary" type="submit" disabled>确认并保存要求<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+      </div>
+    </form>
+  </main>
+
+  <dialog id="handoff-dialog" aria-labelledby="handoff-title" aria-describedby="handoff-prompt">
+    <div class="dialog-head">
+      <h2 id="handoff-title" tabindex="-1">调研要求已保存</h2>
+      <button type="button" class="dialog-close" id="close-dialog" aria-label="关闭提示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog-body">
+      <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+      <p class="handoff-prompt" id="handoff-prompt">请告知 AI 已完成调研要求输入，可开始执行调研工作。</p>
+      <p class="save-state" id="save-state"></p>
+      <div class="dialog-actions">
+        <button id="copy-handoff" type="button" class="button primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>一键复制给 AI</button>
+        <button id="download-requirements" type="button" class="button">下载要求 JSON</button>
+      </div>
+      <p class="status" id="handoff-status" role="status" aria-live="polite"></p>
+      <details class="handoff-details" id="handoff-details">
+        <summary>查看完整交接内容</summary>
+        <label class="sr-only" for="handoff-text">完整调研要求与 JSON</label>
+        <textarea id="handoff-text" readonly spellcheck="false"></textarea>
+        <button type="button" class="text-button select-text" id="select-handoff">选中全部文本</button>
+      </details>
+    </div>
+  </dialog>
+
+  <script src="./amazon-marketplaces.js"></script>
+  <script>
+    (() => {
+      'use strict';
+      const SCHEMA = 'market-research-intake.v1';
+      const DRAFT_KEY = SCHEMA + '.draft';
+      const SAVED_KEY = SCHEMA + '.confirmed';
+      const $ = (id) => document.getElementById(id);
+      const form = $('research-form');
+      const dialog = $('handoff-dialog');
+      const catalog = window.AMAZON_MARKETPLACES;
+      const meta = window.AMAZON_MARKETPLACES_META;
+      let catalogReady = false;
+      let marketplaceInputs = [];
+      let confirmedRequirements = null;
+      let dialogInvoker = null;
+      let scrollState = null;
+      let shownErrors = false;
+
+      function revealStatus(id, message, isError = false) {
+        const el = $(id);
+        el.textContent = message;
+        el.hidden = false;
+        el.style.color = isError ? 'var(--error)' : '';
+      }
+
+      function selectedMarketplaces() {
+        return marketplaceInputs.filter((input) => input.checked).map((input) => input.value);
+      }
+
+      function updateMarketCount() {
+        $('market-count').textContent = '已选 ' + selectedMarketplaces().length + ' / ' + marketplaceInputs.length + ' 个站点';
+        if (shownErrors) validate(false);
+      }
+
+      function renderSources() {
+        $('market-checked').textContent = meta && typeof meta.checkedAt === 'string' ? '目录核对日期：' + meta.checkedAt : '目录核对日期未提供。';
+        const sources = meta && Array.isArray(meta.sources) ? meta.sources : [];
+        sources.forEach((source) => {
+          const item = document.createElement('li');
+          const url = typeof source === 'string' ? source : source && source.url;
+          const name = typeof source === 'string' ? source : source && (source.title || source.name || source.label || source.url);
+          if (!name || typeof name !== 'string') return;
+          let isHttps = false;
+          try { isHttps = new URL(url).protocol === 'https:'; } catch (_) {}
+          if (isHttps) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.textContent = name;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            item.append(link);
+          } else {
+            item.textContent = name;
+          }
+          $('market-source-list').append(item);
+        });
+        if (!$('market-source-list').children.length) {
+          const item = document.createElement('li');
+          item.textContent = '站点来源未随目录提供。';
+          $('market-source-list').append(item);
+        }
+      }
+
+      function renderMarketplaces() {
+        const ids = new Set();
+        const valid = Array.isArray(catalog) && catalog.length > 0 && catalog.every((market) => {
+          if (!market || ['id', 'name', 'domain', 'region'].some((key) => typeof market[key] !== 'string' || !market[key].trim()) || ids.has(market.id)) return false;
+          ids.add(market.id);
+          return true;
+        });
+        if (!valid) {
+          $('market-count').textContent = '站点目录不可用';
+          revealStatus('catalog-error', '未能加载完整站点目录。请将本页与 amazon-marketplaces.js 放在同一目录，再重新打开。', true);
+          $('save-draft').disabled = true;
+          return;
+        }
+        const regions = new Map();
+        catalog.forEach((market) => {
+          if (!regions.has(market.region)) regions.set(market.region, []);
+          regions.get(market.region).push(market);
+        });
+        regions.forEach((markets, regionName) => {
+          const group = document.createElement('fieldset');
+          group.className = 'region';
+          const legend = document.createElement('legend');
+          legend.textContent = regionName;
+          const grid = document.createElement('div');
+          grid.className = 'market-grid';
+          markets.forEach((market) => {
+            const label = document.createElement('label');
+            label.className = 'market';
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'marketplaces';
+            input.value = market.id;
+            input.checked = market.id.toUpperCase() === 'US';
+            input.addEventListener('change', updateMarketCount);
+            const text = document.createElement('span');
+            const name = document.createElement('span');
+            name.className = 'market-name';
+            name.textContent = market.name + ' · ' + market.id;
+            const domain = document.createElement('span');
+            domain.className = 'market-domain';
+            domain.textContent = market.domain;
+            text.append(name, domain);
+            label.append(input, text);
+            grid.append(label);
+            marketplaceInputs.push(input);
+          });
+          group.append(legend, grid);
+          $('market-list').append(group);
+        });
+        catalogReady = true;
+        document.querySelectorAll('[data-bulk]').forEach((button) => { button.disabled = false; });
+        $('confirm-save').disabled = false;
+        updateMarketCount();
+      }
+
+      function requirementsSnapshot() {
+        return {
+          schemaVersion: SCHEMA,
+          scope: {
+            marketplaces: selectedMarketplaces(),
+            productCategory: $('product-category').value.trim(),
+            researchRequirements: $('research-requirements').value.trim()
+          },
+          savedAt: new Date().toISOString()
+        };
+      }
+
+      // Preserve explicit entries from older drafts in the one visible requirements field.
+      function restoredRequirements(snapshot) {
+        const asString = (value) => typeof value === 'string' ? value.trim() : '';
+        const parts = [asString(snapshot.scope.researchRequirements)];
+        const keywords = Array.isArray(snapshot.scope.keywords) ? snapshot.scope.keywords.map(asString).filter(Boolean) : [];
+        if (keywords.length) parts.push('检索词：' + [...new Set(keywords)].join('、'));
+        if (snapshot.dataSource?.strategy === 'fresh') parts.push('资料采集：重新采集。');
+        const packagePath = asString(snapshot.dataSource?.packagePath);
+        if (packagePath) parts.push('已有资料包路径：' + packagePath);
+        const configPath = asString(snapshot.report?.configPath);
+        if (snapshot.report?.template === 'saved' && configPath) parts.push('报告页面配置文件路径：' + configPath);
+        return parts.filter(Boolean).join('\n\n');
+      }
+
+      function persist(key, snapshot) {
+        try {
+          const serialized = JSON.stringify(snapshot);
+          localStorage.setItem(key, serialized);
+          return localStorage.getItem(key) === serialized;
+        } catch (_) { return false; }
+      }
+
+      function loadSnapshot(key) {
+        try {
+          const snapshot = JSON.parse(localStorage.getItem(key));
+          if (!snapshot || snapshot.schemaVersion !== SCHEMA || !snapshot.scope || !Array.isArray(snapshot.scope.marketplaces)) return null;
+          return snapshot;
+        } catch (_) { return null; }
+      }
+
+      function restoreSnapshot() {
+        if (!catalogReady) return;
+        const candidates = [loadSnapshot(DRAFT_KEY), loadSnapshot(SAVED_KEY)].filter(Boolean);
+        candidates.sort((a, b) => (Date.parse(b.savedAt) || 0) - (Date.parse(a.savedAt) || 0));
+        const snapshot = candidates[0];
+        if (!snapshot) return;
+        marketplaceInputs.forEach((input) => { input.checked = snapshot.scope.marketplaces.includes(input.value); });
+        const asString = (value) => typeof value === 'string' ? value : '';
+        $('product-category').value = asString(snapshot.scope.productCategory);
+        $('research-requirements').value = restoredRequirements(snapshot);
+        updateMarketCount();
+        const unknownCount = snapshot.scope.marketplaces.filter((id) => !marketplaceInputs.some((input) => input.value === id)).length;
+        revealStatus('draft-status', unknownCount ? '已恢复本地填写内容。其中 ' + unknownCount + ' 个站点不在当前目录中，请重新确认站点选择。' : '已恢复上次保存在当前浏览器的填写内容。');
+      }
+
+      function fieldError(controlId, messageId, message) {
+        const control = $(controlId);
+        const target = $(messageId);
+        control.setAttribute('aria-invalid', message ? 'true' : 'false');
+        target.hidden = !message;
+        target.textContent = message;
+      }
+
+      function validate(focusError) {
+        const errors = [];
+        const noMarkets = !selectedMarketplaces().length;
+        const noCategory = !$('product-category').value.trim();
+        fieldError('marketplaces', 'market-error', noMarkets ? '请至少选择 1 个 Amazon 站点。' : '');
+        fieldError('product-category', 'category-error', noCategory ? '请填写产品品类。' : '');
+        if (noMarkets) errors.push({id: 'marketplaces', text: '选择至少 1 个 Amazon 站点'});
+        if (noCategory) errors.push({id: 'product-category', text: '填写产品品类'});
+        const errorBox = $('form-errors');
+        errorBox.replaceChildren();
+        errorBox.hidden = errors.length === 0;
+        if (errors.length) {
+          const intro = document.createElement('strong');
+          intro.textContent = '还需完成以下内容：';
+          const list = document.createElement('ul');
+          errors.forEach((error) => {
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = '#' + error.id;
+            link.textContent = error.text;
+            link.addEventListener('click', (event) => {
+              event.preventDefault();
+              $(error.id).focus();
+            });
+            item.append(link);
+            list.append(item);
+          });
+          errorBox.append(intro, list);
+          if (focusError) errorBox.focus();
+        }
+        return errors.length === 0 && catalogReady;
+      }
+
+      function composeHandoff(snapshot) {
+        return '我已完成市场调研要求输入，请根据以下完整要求开始执行调研工作。\n' +
+          '请按指定站点、产品品类和检索要求开展调研，并生成独立的调研结果网站。\n\n' +
+          '调研要求 JSON：\n' + JSON.stringify(snapshot, null, 2);
+      }
+
+      function openHandoff(snapshot, saved, invoker) {
+        confirmedRequirements = snapshot;
+        dialogInvoker = invoker;
+        $('handoff-title').textContent = saved ? '调研要求已保存' : '调研要求已整理';
+        $('save-state').textContent = saved ? '已保存在当前浏览器。复制内容包含全部要求，发送给 AI 后即可开始调研。' : '当前浏览器未能保存本地副本。请下载要求 JSON 留存，或复制完整要求交给 AI。';
+        $('save-state').classList.toggle('failed', !saved);
+        $('handoff-text').value = composeHandoff(snapshot);
+        $('handoff-details').open = false;
+        $('handoff-status').textContent = '';
+        $('handoff-status').style.color = '';
+        scrollState = {x: window.scrollX, y: window.scrollY, position: document.body.style.position, top: document.body.style.top, left: document.body.style.left, width: document.body.style.width, overflow: document.body.style.overflow, clientWidth: document.documentElement.clientWidth};
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollState.y + 'px';
+        document.body.style.left = '-' + scrollState.x + 'px';
+        document.body.style.width = scrollState.clientWidth + 'px';
+        document.body.style.overflow = 'hidden';
+        dialog.showModal();
+        $('handoff-title').focus();
+      }
+
+      function selectHandoff() {
+        $('handoff-details').open = true;
+        $('handoff-text').focus();
+        $('handoff-text').select();
+        $('handoff-text').setSelectionRange(0, $('handoff-text').value.length);
+      }
+
+      document.querySelectorAll('[data-bulk]').forEach((button) => {
+        button.addEventListener('click', () => {
+          marketplaceInputs.forEach((input) => { input.checked = button.dataset.bulk === 'all' ? true : button.dataset.bulk === 'none' ? false : !input.checked; });
+          updateMarketCount();
+        });
+      });
+
+      form.addEventListener('input', () => { if (shownErrors) validate(false); });
+
+      $('save-draft').addEventListener('click', () => {
+        if (!catalogReady) return;
+        const saved = persist(DRAFT_KEY, requirementsSnapshot());
+        revealStatus('draft-status', saved ? '草稿已保存在当前浏览器，可稍后继续填写。' : '草稿未能保存：当前浏览器不允许本地存储。填写完成后可下载要求 JSON。', !saved);
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        shownErrors = true;
+        if (!validate(true)) return;
+        const snapshot = requirementsSnapshot();
+        const saved = persist(SAVED_KEY, snapshot);
+        if (saved) persist(DRAFT_KEY, snapshot);
+        openHandoff(snapshot, saved, event.submitter || $('confirm-save'));
+      });
+
+      $('close-dialog').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        if (event.target !== dialog) return;
+        const rect = dialog.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+      });
+      dialog.addEventListener('close', () => {
+        if (scrollState) {
+          const state = scrollState;
+          scrollState = null;
+          Object.assign(document.body.style, {position: state.position, top: state.top, left: state.left, width: state.width, overflow: state.overflow});
+          window.scrollTo(state.x, state.y);
+        }
+        if (dialogInvoker && dialogInvoker.isConnected) dialogInvoker.focus({preventScroll: true});
+        dialogInvoker = null;
+      });
+
+      $('copy-handoff').addEventListener('click', async () => {
+        try {
+          if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') throw new Error('Clipboard unavailable');
+          await navigator.clipboard.writeText($('handoff-text').value);
+          revealStatus('handoff-status', '已复制完整调研要求，请粘贴到 AI 对话中发送。');
+        } catch (_) {
+          selectHandoff();
+          revealStatus('handoff-status', '浏览器未允许自动复制。已选中完整内容，请使用复制快捷键，或长按文本复制。', true);
+        }
+      });
+      $('select-handoff').addEventListener('click', () => {
+        selectHandoff();
+        revealStatus('handoff-status', '已选中完整内容，请使用复制快捷键，或长按文本复制。');
+      });
+      $('download-requirements').addEventListener('click', () => {
+        if (!confirmedRequirements) return;
+        try {
+          const blob = new Blob([JSON.stringify(confirmedRequirements, null, 2) + '\n'], {type: 'application/json;charset=utf-8'});
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'market-research-requirements-' + confirmedRequirements.savedAt.replace(/[:.]/g, '-') + '.json';
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          revealStatus('handoff-status', '已发起下载，请在浏览器的下载记录中确认文件已保存。');
+        } catch (_) {
+          selectHandoff();
+          revealStatus('handoff-status', '浏览器未能创建下载文件。请复制完整交接内容并保存。', true);
+        }
+      });
+
+      renderMarketplaces();
+      renderSources();
+      restoreSnapshot();
+    })();
+  </script>
+</body>
+</html>
